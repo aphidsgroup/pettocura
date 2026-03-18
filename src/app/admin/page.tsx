@@ -1,7 +1,8 @@
 'use client';
 
-import { FaStore, FaBlog, FaTools, FaPaw } from 'react-icons/fa';
+import { FaStore, FaBlog, FaTools, FaPaw, FaWrench } from 'react-icons/fa';
 import Link from 'next/link';
+import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
 
 const dashboardCards = [
   { title: 'Store Locations', count: '3', desc: 'Manage center locations', icon: FaStore, href: '/admin/stores', color: 'from-teal-500 to-teal-600' },
@@ -11,11 +12,60 @@ const dashboardCards = [
 ];
 
 export default function AdminDashboard() {
+  const { isMaintenanceMode, loading, toggle } = useMaintenanceMode();
+
   return (
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-stone-900">Dashboard</h1>
         <p className="text-stone-500 text-sm mt-1">Welcome to the Petto Cura Control Center</p>
+      </div>
+
+      {/* Maintenance Mode Toggle */}
+      <div className={`mb-8 rounded-2xl border-2 p-6 transition-all duration-300 ${
+        isMaintenanceMode
+          ? 'bg-amber-50 border-amber-300 shadow-lg shadow-amber-100'
+          : 'bg-white border-stone-200'
+      }`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+              isMaintenanceMode
+                ? 'bg-amber-500 shadow-lg shadow-amber-500/30'
+                : 'bg-stone-200'
+            }`}>
+              <FaWrench className={`w-5 h-5 ${isMaintenanceMode ? 'text-white' : 'text-stone-500'}`} />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-stone-900">Maintenance Mode</h2>
+              <p className="text-sm text-stone-500">
+                {isMaintenanceMode
+                  ? '⚠️ Website is showing maintenance page to all visitors'
+                  : 'Website is live and accessible to visitors'
+                }
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={toggle}
+            disabled={loading}
+            className="relative"
+            aria-label="Toggle maintenance mode"
+          >
+            <div className={`w-16 h-8 rounded-full transition-colors duration-300 ${
+              isMaintenanceMode ? 'bg-amber-500' : 'bg-stone-300'
+            }`}>
+              <div className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform duration-300 ${
+                isMaintenanceMode ? 'translate-x-9' : 'translate-x-1'
+              }`} />
+            </div>
+          </button>
+        </div>
+        {isMaintenanceMode && (
+          <div className="mt-4 p-3 bg-amber-100 rounded-xl text-amber-800 text-sm">
+            🔒 All public pages are currently showing a &quot;Under Maintenance&quot; screen. Admin panel remains accessible. Toggle off to restore the live site.
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -52,3 +102,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
