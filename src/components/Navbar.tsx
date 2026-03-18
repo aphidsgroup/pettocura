@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -41,12 +42,14 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-md shadow-teal-600/20 group-hover:shadow-lg group-hover:shadow-teal-600/30 transition-shadow">
-              <span className="text-white text-lg font-bold">P</span>
-            </div>
-            <span className="text-xl font-bold text-stone-900">
-              Petto <span className="text-teal-600">Cura</span>
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Petto Cura Logo"
+              width={140}
+              height={45}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav Links */}

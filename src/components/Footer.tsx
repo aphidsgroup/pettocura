@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaInstagram, FaFacebookF, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 
 const footerLinks = {
@@ -38,12 +39,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center">
-                <span className="text-white text-lg font-bold">P</span>
-              </div>
-              <span className="text-xl font-bold text-white">
-                Petto <span className="text-teal-400">Cura</span>
-              </span>
+              <Image
+                src="/logo.png"
+                alt="Petto Cura Logo"
+                width={130}
+                height={42}
+                className="h-8 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-stone-400 text-sm leading-relaxed max-w-sm mb-6">
               Premium pet grooming and boarding services in Chennai. Where every tail wags with joy and every whisker shines with care.

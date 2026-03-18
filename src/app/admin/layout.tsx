@@ -2,6 +2,7 @@
 
 import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye } from 'react-icons/fa';
 
@@ -48,8 +49,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <div className="min-h-screen bg-stone-900 flex items-center justify-center p-4">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl font-bold">P</span>
+            <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mx-auto mb-4 p-2">
+              <Image
+                src="/logo.png"
+                alt="Petto Cura Logo"
+                width={56}
+                height={56}
+                className="w-full h-full object-contain brightness-0 invert"
+              />
             </div>
             <h1 className="text-2xl font-bold text-white">Petto Cura Admin</h1>
             <p className="text-stone-400 text-sm mt-1">CMS Control Center</p>
@@ -83,8 +90,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-stone-900 transform transition-transform lg:translate-x-0 lg:static ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center justify-between p-5 border-b border-stone-800">
           <Link href="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center">
-              <span className="text-white text-sm font-bold">P</span>
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center p-1">
+              <Image
+                src="/logo.png"
+                alt="Petto Cura"
+                width={28}
+                height={28}
+                className="w-full h-full object-contain brightness-0 invert"
+              />
             </div>
             <span className="text-white font-bold">Admin Panel</span>
           </Link>
