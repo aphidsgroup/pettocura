@@ -58,7 +58,7 @@ export default function MapComponent({ stores, selectedStore, onSelectStore }: M
           <div style="font-family: Inter, sans-serif; padding: 4px;">
             <strong style="font-size: 14px;">${store.title}</strong>
             <p style="font-size: 12px; color: #57534e; margin: 4px 0;">${store.address}</p>
-            <p style="font-size: 12px; color: #14B8A6;">${store.phone}</p>
+            <p style="font-size: 12px; color: #0591AD;">${store.phone}</p>
             <span style="font-size: 11px; padding: 2px 8px; border-radius: 12px; background: ${store.status === 'open' ? '#d1fae5' : '#fee2e2'}; color: ${store.status === 'open' ? '#065f46' : '#991b1b'};">${store.status === 'open' ? 'Open' : 'Closed'}</span>
           </div>
         `);

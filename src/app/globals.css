@@ -1,11 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cura-teal: #14B8A6;
-  --color-cura-teal-light: #5EEAD4;
-  --color-cura-teal-dark: #0F766E;
+  --color-cura-teal: #0591AD;
+  --color-cura-teal-light: #3BB8D0;
+  --color-cura-teal-dark: #046E85;
   --color-soft-bone: #F5F5F4;
   --font-sans: 'Inter', 'Outfit', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Override Tailwind teal palette with #0591AD brand color */
+  --color-teal-50: #e8f7fa;
+  --color-teal-100: #c5ecf3;
+  --color-teal-200: #8dd9e7;
+  --color-teal-300: #55c5db;
+  --color-teal-400: #1dafc7;
+  --color-teal-500: #0591AD;
+  --color-teal-600: #047a93;
+  --color-teal-700: #046E85;
+  --color-teal-800: #034f60;
+  --color-teal-900: #023945;
+  --color-teal-950: #01242d;
 }
 
 @layer base {
@@ -22,8 +35,8 @@
   }
 
   ::selection {
-    background-color: #99f6e4;
-    color: #134e4a;
+    background-color: #8dd9e7;
+    color: #023945;
   }
 }
 
@@ -49,6 +62,7 @@
 .prose-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose-content li { margin-bottom: 0.5rem; line-height: 1.6; color: #57534e; }
 .prose-content strong { font-weight: 600; color: #1c1917; }
-.prose-content a { color: #14B8A6; text-decoration: underline; }
+.prose-content a { color: #0591AD; text-decoration: underline; }
 .prose-content hr { border-color: #e7e5e4; margin: 2rem 0; }
-.prose-content blockquote { border-left: 3px solid #14B8A6; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #78716c; }
+.prose-content blockquote { border-left: 3px solid #0591AD; padding-left: 1rem; margin: 1.5rem 0; font-style: italic; color: #78716c; }
+
