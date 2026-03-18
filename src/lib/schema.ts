@@ -4,7 +4,7 @@ export function generateLocalBusinessSchema() {
     '@type': 'LocalBusiness',
     '@id': 'https://pettocura.com',
     name: 'Petto Cura',
-    description: 'Premium pet grooming and boarding services in Chennai. Professional pet care in Nolambur and Mogappair with certified groomers and safe boarding facilities.',
+    description: 'Premium pet grooming and boarding services in Nolambur, Chennai. Professional pet care with certified groomers and safe boarding facilities.',
     url: 'https://pettocura.com',
     telephone: '+91-98765-43210',
     email: 'hello@pettocura.com',
@@ -31,7 +31,6 @@ export function generateLocalBusinessSchema() {
     areaServed: [
       { '@type': 'City', name: 'Chennai' },
       { '@type': 'Place', name: 'Nolambur' },
-      { '@type': 'Place', name: 'Mogappair' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

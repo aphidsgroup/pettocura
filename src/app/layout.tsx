@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     default: 'Petto Cura — Premium Pet Grooming & Boarding in Chennai',
     template: '%s | Petto Cura',
   },
-  description: 'Premium pet grooming and boarding services in Nolambur & Mogappair, Chennai. Certified groomers, safe boarding, and 24/7 live pet updates. Book your appointment today.',
+  description: 'Premium pet grooming and boarding services in Nolambur, Chennai. Certified groomers, safe boarding, and 24/7 live pet updates. Book your appointment today.',
   keywords: [
     'pet grooming Chennai', 'dog boarding Chennai', 'pet care Nolambur',
-    'dog grooming Mogappair', 'pet boarding Mogappair', 'pet spa Chennai',
+    'dog grooming Nolambur', 'pet boarding Nolambur', 'pet spa Chennai',
     'premium pet grooming', 'safe dog boarding', 'pet daycare Chennai',
     'Petto Cura', 'pet grooming near me', 'best pet grooming Chennai',
   ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Petto Cura — Premium Pet Care in Chennai',
-    description: 'Premium pet grooming & boarding in Nolambur & Mogappair. Book now!',
+    description: 'Premium pet grooming & boarding in Nolambur, Chennai. Book now!',
     images: ['/og-image.png'],
   },
   robots: {

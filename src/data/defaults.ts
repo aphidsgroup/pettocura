@@ -45,26 +45,6 @@ export const defaultStores: StoreLocation[] = [
     status: 'open',
     hours: '8:00 AM – 8:00 PM',
   },
-  {
-    id: 'store-2',
-    title: 'Petto Cura — Mogappair East',
-    address: '45, Golden Flats Road, Mogappair East, Chennai - 600037',
-    lat: 13.0827,
-    lng: 80.1773,
-    phone: '+91 98765 43211',
-    status: 'open',
-    hours: '9:00 AM – 7:00 PM',
-  },
-  {
-    id: 'store-3',
-    title: 'Petto Cura — Mogappair West',
-    address: '78, Anna Nagar West Extension, Mogappair West, Chennai - 600037',
-    lat: 13.0790,
-    lng: 80.1650,
-    phone: '+91 98765 43212',
-    status: 'closed',
-    hours: 'Temporarily Closed',
-  },
 ];
 
 export const defaultServices: ServiceItem[] = [

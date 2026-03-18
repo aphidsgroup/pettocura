@@ -22,7 +22,7 @@ export default function FindCenterContent() {
           <AnimatedSection>
             <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Locations</span>
             <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">Find a Center Near You</h1>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Visit our premium pet care centers in Nolambur & Mogappair, Chennai. Walk-ins welcome!</p>
+            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Visit our premium pet care center in Nolambur, Chennai. Walk-ins welcome!</p>
           </AnimatedSection>
         </div>
         </section>

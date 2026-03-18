@@ -27,7 +27,7 @@ const quickAnswers = [
 const keyFacts = [
   { label: 'Services', value: 'Overnight Boarding, Premium Suite, Daycare, Extended Stay (7+ days)' },
   { label: 'Price Range', value: '₹599/day (Daycare) – ₹1,799/night (Premium Suite)' },
-  { label: 'Location', value: 'Nolambur & Mogappair, Chennai, Tamil Nadu' },
+  { label: 'Location', value: 'Nolambur, Chennai, Tamil Nadu' },
   { label: 'Safety Features', value: '24/7 CCTV, Climate Control, Vet On-Call, Fire Safety' },
   { label: 'Updates', value: 'WhatsApp photo/video updates; live webcam for Premium Suite' },
   { label: 'Meals', value: '3 meals/day (customizable to pet\'s diet)' },
@@ -59,7 +59,7 @@ export default function BoardingContent() {
         <HeroSection
           badge="Safety-First Pet Boarding"
           title="Safe Dog Boarding in"
-          highlight="Mogappair & Nolambur"
+          highlight="Nolambur, Chennai"
           subtitle="Climate-controlled, CCTV-monitored boarding with live updates. Your pet's safety is our top priority — always."
           ctaText="Book Boarding"
           ctaHref="/contact"

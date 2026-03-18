@@ -10,7 +10,7 @@ import { SectionGate } from '@/components/SectionGate';
 const services = [
   { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals.', href: '/grooming', color: 'from-teal-400 to-teal-500' },
   { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access.', href: '/boarding', color: 'from-amber-400 to-orange-400' },
-  { icon: '📍', title: 'Find a Center', desc: 'Locate our pet care centers in Nolambur & Mogappair, Chennai.', href: '/find-a-center', color: 'from-violet-400 to-purple-500' },
+  { icon: '📍', title: 'Find a Center', desc: 'Locate our pet care center in Nolambur, Chennai.', href: '/find-a-center', color: 'from-violet-400 to-purple-500' },
 ];
 
 const trustSignals = [
@@ -34,7 +34,7 @@ export default function HomePage() {
     <PageGate pageKey="home">
       <SectionGate id="home-hero">
         <HeroSection
-          badge="Now Open in Nolambur & Mogappair"
+          badge="Now Open in Nolambur, Chennai"
           title="Where Every Tail Wags With"
           highlight="Joy"
           subtitle="Premium pet grooming, boarding, and daycare that your furry family members deserve. Certified care in the heart of Chennai."
