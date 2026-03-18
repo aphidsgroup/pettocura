@@ -18,7 +18,7 @@ const groomingFaqs = [
 
 const quickAnswers = [
   { question: 'What is the cost of pet grooming at Petto Cura, Chennai?', answer: 'Our grooming services start at ₹599 for Basic Bath & Brush and go up to ₹1,999 for our premium Spa & De-shedding package. Full Body Grooming is ₹1,499. All packages include breed-specific care.' },
-  { question: 'Where is Petto Cura\'s grooming center located?', answer: 'We have grooming centers in Nolambur (12/5, 2nd Main Road, Chennai - 600095) and Mogappair East (45, Golden Flats Road, Chennai - 600037). Both centers are open 7 days a week.' },
+  { question: 'Where is Petto Cura\'s grooming center located?', answer: 'We have grooming centers in Nolambur (Plot.No.6, Door.No.4, M.C.K Layout, Chennai - 600095) and Mogappair East (45, Golden Flats Road, Chennai - 600037). Both centers are open 7 days a week.' },
   { question: 'Is Petto Cura\'s grooming safe for puppies?', answer: 'Absolutely. Our Puppy First Groom package (₹599) is designed for puppies aged 3-6 months. We use puppy-safe, hypoallergenic products and gentle handling techniques with positive reinforcement.' },
 ];
 

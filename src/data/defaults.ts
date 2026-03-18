@@ -38,9 +38,9 @@ export const defaultStores: StoreLocation[] = [
   {
     id: 'store-1',
     title: 'Petto Cura — Nolambur',
-    address: '12/5, 2nd Main Road, Nolambur, Chennai - 600095',
-    lat: 13.0694,
-    lng: 80.1686,
+    address: 'Plot.No.6, Door.No.4, M.C.K Layout, Nolambur, Chennai - 600095',
+    lat: 13.068643,
+    lng: 80.162437,
     phone: '+91 98765 43210',
     status: 'open',
     hours: '8:00 AM – 8:00 PM',

@@ -164,7 +164,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Main Center</p>
-                        <p className="text-teal-100 text-sm">12/5, 2nd Main Road, Nolambur, Chennai - 600095</p>
+                        <p className="text-teal-100 text-sm">Plot.No.6, Door.No.4, M.C.K Layout, Nolambur, Chennai - 600095</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">

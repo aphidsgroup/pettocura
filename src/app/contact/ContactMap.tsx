@@ -21,7 +21,7 @@ export default function ContactMap() {
     if (!mapRef.current) return;
 
     const map = L.map(mapRef.current, {
-      center: [13.0694, 80.1686],
+      center: [13.068643, 80.162437],
       zoom: 15,
       scrollWheelZoom: false,
     });
@@ -30,12 +30,12 @@ export default function ContactMap() {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(map);
 
-    L.marker([13.0694, 80.1686], { icon: defaultIcon })
+    L.marker([13.068643, 80.162437], { icon: defaultIcon })
       .addTo(map)
       .bindPopup(`
         <div style="font-family: Inter, sans-serif;">
           <strong>Petto Cura — Nolambur</strong><br/>
-          <span style="color: #57534e; font-size: 12px;">12/5, 2nd Main Road, Nolambur</span><br/>
+          <span style="color: #57534e; font-size: 12px;">Plot.No.6, Door.No.4, M.C.K Layout, Nolambur</span><br/>
           <span style="color: #14B8A6; font-size: 12px;">+91 98765 43210</span>
         </div>
       `)

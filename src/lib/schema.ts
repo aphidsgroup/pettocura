@@ -10,7 +10,7 @@ export function generateLocalBusinessSchema() {
     email: 'hello@pettocura.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '12/5, 2nd Main Road, Nolambur',
+      streetAddress: 'Plot.No.6, Door.No.4, M.C.K Layout, Nolambur',
       addressLocality: 'Chennai',
       addressRegion: 'Tamil Nadu',
       postalCode: '600095',
@@ -18,8 +18,8 @@ export function generateLocalBusinessSchema() {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 13.0694,
-      longitude: 80.1686,
+      latitude: 13.068643,
+      longitude: 80.162437,
     },
     openingHours: 'Mo-Su 08:00-20:00',
     priceRange: '₹₹',
