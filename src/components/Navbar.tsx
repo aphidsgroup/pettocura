@@ -45,9 +45,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="Petto Cura Logo"
-              width={140}
-              height={45}
-              className="h-9 w-auto object-contain"
+              width={200}
+              height={56}
+              className="h-14 w-auto object-contain"
               priority
             />
           </Link>

@@ -42,9 +42,9 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="Petto Cura Logo"
-                width={130}
-                height={42}
-                className="h-8 w-auto object-contain brightness-0 invert"
+                width={180}
+                height={48}
+                className="h-12 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-stone-400 text-sm leading-relaxed max-w-sm mb-6">
