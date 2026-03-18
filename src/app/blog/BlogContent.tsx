@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { PageGate } from '@/components/PageGate';
+import { SectionGate } from '@/components/SectionGate';
 import { defaultBlogPosts } from '@/data/defaults';
 
 const categories = ['All', 'Grooming Tips', 'Boarding', 'Pet Health', 'Nutrition'];
@@ -24,39 +26,43 @@ export default function BlogContent() {
     : posts.filter((p) => p.category === activeCategory);
 
   return (
-    <>
-      <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Blog</span>
-            <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">Pet Care Guides</h1>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Expert tips, grooming guides, and everything you need to keep your furry friend healthy and happy.</p>
-          </AnimatedSection>
+    <PageGate pageKey="blog">
+      <SectionGate id="blog-header">
+        <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <AnimatedSection>
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Blog</span>
+              <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">Pet Care Guides</h1>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Expert tips, grooming guides, and everything you need to keep your furry friend healthy and happy.</p>
+            </AnimatedSection>
 
-          {/* Category Filters */}
-          <AnimatedSection delay={0.2} className="mt-10">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    activeCategory === cat
-                      ? 'bg-teal-600 text-white shadow-md shadow-teal-600/20'
-                      : 'bg-white text-stone-600 border border-stone-200 hover:border-teal-300 hover:text-teal-700'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+          <SectionGate id="blog-filters">
+            <AnimatedSection delay={0.2} className="mt-10">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                      activeCategory === cat
+                        ? 'bg-teal-600 text-white shadow-md shadow-teal-600/20'
+                        : 'bg-white text-stone-600 border border-stone-200 hover:border-teal-300 hover:text-teal-700'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </AnimatedSection>
+          </SectionGate>
+          </div>
+        </section>
+      </SectionGate>
 
-      <section className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <SectionGate id="blog-grid">
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post, i) => (
               <motion.div
                 key={post.id}
@@ -109,8 +115,9 @@ export default function BlogContent() {
               <p className="text-stone-400 text-lg">No posts found in this category yet.</p>
             </div>
           )}
-        </div>
-      </section>
-    </>
+          </div>
+        </section>
+      </SectionGate>
+    </PageGate>
   );
 }

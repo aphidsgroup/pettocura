@@ -5,6 +5,8 @@ import ServiceCard from '@/components/ui/ServiceCard';
 import KeyFactsTable from '@/components/ui/KeyFactsTable';
 import QuickAnswers from '@/components/ui/QuickAnswers';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { PageGate } from '@/components/PageGate';
+import { SectionGate } from '@/components/SectionGate';
 import { defaultServices } from '@/data/defaults';
 import { generateFAQSchema } from '@/lib/schema';
 import { motion } from 'framer-motion';
@@ -47,63 +49,68 @@ export default function BoardingContent() {
   const faqSchema = generateFAQSchema(boardingFaqs);
 
   return (
-    <>
+    <PageGate pageKey="boarding">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <HeroSection
-        badge="Safety-First Pet Boarding"
-        title="Safe Dog Boarding in"
-        highlight="Mogappair & Nolambur"
-        subtitle="Climate-controlled, CCTV-monitored boarding with live updates. Your pet's safety is our top priority — always."
-        ctaText="Book Boarding"
-        ctaHref="/contact"
-        secondaryCtaText="Tour Our Facility"
-        secondaryCtaHref="/find-a-center"
-      />
+      <SectionGate id="boarding-hero">
+        <HeroSection
+          badge="Safety-First Pet Boarding"
+          title="Safe Dog Boarding in"
+          highlight="Mogappair & Nolambur"
+          subtitle="Climate-controlled, CCTV-monitored boarding with live updates. Your pet's safety is our top priority — always."
+          ctaText="Book Boarding"
+          ctaHref="/contact"
+          secondaryCtaText="Tour Our Facility"
+          secondaryCtaHref="/find-a-center"
+        />
+      </SectionGate>
 
-      {/* Quick Answers */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <QuickAnswers answers={quickAnswers} />
-        </div>
-      </section>
-
-      {/* Key Facts */}
-      <section className="py-4 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <KeyFactsTable title="Petto Cura Boarding — Key Facts" facts={keyFacts} />
-        </div>
-      </section>
-
-      {/* Safety Features */}
-      <section className="py-20 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Safety First</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Your Pet&apos;s Safety, Guaranteed</h2>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">We&apos;ve invested in the best safety infrastructure so you can rest easy.</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {safetyFeatures.map((feature, i) => (
-              <AnimatedSection key={feature.title} delay={i * 0.1}>
-                <div className="bg-white rounded-2xl p-6 border border-stone-100 hover:shadow-lg hover:border-teal-200/50 transition-all duration-300 h-full">
-                  <span className="text-3xl mb-4 block">{feature.icon}</span>
-                  <h3 className="text-lg font-bold text-stone-900 mb-2">{feature.title}</h3>
-                  <p className="text-stone-500 text-sm leading-relaxed">{feature.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+      <SectionGate id="boarding-quick-answers">
+        <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <QuickAnswers answers={quickAnswers} />
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionGate>
 
-      {/* Live Update Teaser */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionGate id="boarding-key-facts">
+        <section className="py-4 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <KeyFactsTable title="Petto Cura Boarding — Key Facts" facts={keyFacts} />
+          </div>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="boarding-safety">
+        <section className="py-20 bg-stone-50">
+          {/* ... safety content stays same ... */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-16">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Safety First</span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Your Pet&apos;s Safety, Guaranteed</h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">We&apos;ve invested in the best safety infrastructure so you can rest easy.</p>
+            </AnimatedSection>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {safetyFeatures.map((feature, i) => (
+                <AnimatedSection key={feature.title} delay={i * 0.1}>
+                  <div className="bg-white rounded-2xl p-6 border border-stone-100 hover:shadow-lg hover:border-teal-200/50 transition-all duration-300 h-full">
+                    <span className="text-3xl mb-4 block">{feature.icon}</span>
+                    <h3 className="text-lg font-bold text-stone-900 mb-2">{feature.title}</h3>
+                    <p className="text-stone-500 text-sm leading-relaxed">{feature.desc}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="boarding-live-update">
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Live Pet Updates</span>
@@ -156,50 +163,53 @@ export default function BoardingContent() {
               </div>
             </AnimatedSection>
           </div>
-        </div>
-      </section>
-
-      {/* Boarding Services */}
-      <section className="py-20 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Boarding Packages</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Find the Perfect Stay</h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {boardingServices.map((service, i) => (
-              <ServiceCard key={service.id} icon={service.icon} name={service.name} description={service.description} price={service.price} features={service.features} index={i} />
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionGate>
 
-      {/* FAQ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Questions?</span>
-            <h2 className="mt-3 text-3xl font-bold text-stone-900">Boarding FAQs</h2>
-          </AnimatedSection>
+      <SectionGate id="boarding-services">
+        <section className="py-20 bg-stone-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-16">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Boarding Packages</span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Find the Perfect Stay</h2>
+            </AnimatedSection>
 
-          <div className="space-y-4">
-            {boardingFaqs.map((faq, i) => (
-              <AnimatedSection key={i} delay={i * 0.1}>
-                <details className="group bg-white rounded-2xl border border-stone-200 overflow-hidden">
-                  <summary className="flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-stone-50 transition-colors">
-                    <span className="font-semibold text-stone-900 text-sm pr-4">{faq.question}</span>
-                    <svg className="w-5 h-5 text-stone-400 flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <div className="px-6 pb-5 text-sm text-stone-600 leading-relaxed">{faq.answer}</div>
-                </details>
-              </AnimatedSection>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {boardingServices.map((service, i) => (
+                <ServiceCard key={service.id} icon={service.icon} name={service.name} description={service.description} price={service.price} features={service.features} index={i} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="boarding-faq">
+        <section className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-12">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Questions?</span>
+              <h2 className="mt-3 text-3xl font-bold text-stone-900">Boarding FAQs</h2>
+            </AnimatedSection>
+
+            <div className="space-y-4">
+              {boardingFaqs.map((faq, i) => (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <details className="group bg-white rounded-2xl border border-stone-200 overflow-hidden">
+                    <summary className="flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-stone-50 transition-colors">
+                      <span className="font-semibold text-stone-900 text-sm pr-4">{faq.question}</span>
+                      <svg className="w-5 h-5 text-stone-400 flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <div className="px-6 pb-5 text-sm text-stone-600 leading-relaxed">{faq.answer}</div>
+                  </details>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionGate>
+    </PageGate>
   );
 }

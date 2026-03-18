@@ -5,6 +5,8 @@ import ServiceCard from '@/components/ui/ServiceCard';
 import KeyFactsTable from '@/components/ui/KeyFactsTable';
 import QuickAnswers from '@/components/ui/QuickAnswers';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { PageGate } from '@/components/PageGate';
+import { SectionGate } from '@/components/SectionGate';
 import { defaultServices } from '@/data/defaults';
 import { generateFAQSchema } from '@/lib/schema';
 
@@ -38,87 +40,93 @@ export default function GroomingContent() {
   const faqSchema = generateFAQSchema(groomingFaqs);
 
   return (
-    <>
+    <PageGate pageKey="grooming">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <HeroSection
-        badge="Certified Professional Groomers"
-        title="Premium Pet Grooming in"
-        highlight="Chennai"
-        subtitle="Breed-specific grooming by certified experts using premium, vet-approved products. Your pet leaves happy, clean, and looking their best."
-        ctaText="Book Grooming"
-        ctaHref="/contact"
-        secondaryCtaText="View Prices"
-        secondaryCtaHref="#services"
-      />
+      <SectionGate id="grooming-hero">
+        <HeroSection
+          badge="Certified Professional Groomers"
+          title="Premium Pet Grooming in"
+          highlight="Chennai"
+          subtitle="Breed-specific grooming by certified experts using premium, vet-approved products. Your pet leaves happy, clean, and looking their best."
+          ctaText="Book Grooming"
+          ctaHref="/contact"
+          secondaryCtaText="View Prices"
+          secondaryCtaHref="#services"
+        />
+      </SectionGate>
 
-      {/* Quick Answers (AEO) */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <QuickAnswers answers={quickAnswers} />
-        </div>
-      </section>
-
-      {/* Key Facts (GEO) */}
-      <section className="py-4 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <KeyFactsTable title="Petto Cura Grooming — Key Facts" facts={keyFacts} />
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section id="services" className="py-20 bg-stone-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Grooming Packages</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Choose the Perfect Groom</h2>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Every grooming package includes a health check, ear inspection, and breed-appropriate styling.</p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {groomingServices.map((service, i) => (
-              <ServiceCard
-                key={service.id}
-                icon={service.icon}
-                name={service.name}
-                description={service.description}
-                price={service.price}
-                features={service.features}
-                index={i}
-              />
-            ))}
+      <SectionGate id="grooming-quick-answers">
+        <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <QuickAnswers answers={quickAnswers} />
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionGate>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Got Questions?</span>
-            <h2 className="mt-3 text-3xl font-bold text-stone-900">Frequently Asked Questions</h2>
-          </AnimatedSection>
-
-          <div className="space-y-4">
-            {groomingFaqs.map((faq, i) => (
-              <AnimatedSection key={i} delay={i * 0.1}>
-                <details className="group bg-white rounded-2xl border border-stone-200 overflow-hidden">
-                  <summary className="flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-stone-50 transition-colors">
-                    <span className="font-semibold text-stone-900 text-sm pr-4">{faq.question}</span>
-                    <svg className="w-5 h-5 text-stone-400 flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <div className="px-6 pb-5 text-sm text-stone-600 leading-relaxed">{faq.answer}</div>
-                </details>
-              </AnimatedSection>
-            ))}
+      <SectionGate id="grooming-key-facts">
+        <section className="py-4 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <KeyFactsTable title="Petto Cura Grooming — Key Facts" facts={keyFacts} />
           </div>
-        </div>
-      </section>
-    </>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="grooming-services">
+        <section id="services" className="py-20 bg-stone-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-16">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Grooming Packages</span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Choose the Perfect Groom</h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Every grooming package includes a health check, ear inspection, and breed-appropriate styling.</p>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {groomingServices.map((service, i) => (
+                <ServiceCard
+                  key={service.id}
+                  icon={service.icon}
+                  name={service.name}
+                  description={service.description}
+                  price={service.price}
+                  features={service.features}
+                  index={i}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="grooming-faq">
+        <section id="faq" className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-12">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Got Questions?</span>
+              <h2 className="mt-3 text-3xl font-bold text-stone-900">Frequently Asked Questions</h2>
+            </AnimatedSection>
+
+            <div className="space-y-4">
+              {groomingFaqs.map((faq, i) => (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <details className="group bg-white rounded-2xl border border-stone-200 overflow-hidden">
+                    <summary className="flex items-center justify-between px-6 py-5 cursor-pointer hover:bg-stone-50 transition-colors">
+                      <span className="font-semibold text-stone-900 text-sm pr-4">{faq.question}</span>
+                      <svg className="w-5 h-5 text-stone-400 flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <div className="px-6 pb-5 text-sm text-stone-600 leading-relaxed">{faq.answer}</div>
+                  </details>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionGate>
+    </PageGate>
   );
 }

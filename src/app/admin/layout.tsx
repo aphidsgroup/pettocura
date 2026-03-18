@@ -3,12 +3,13 @@
 import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye } from 'react-icons/fa';
 
 const ADMIN_PASSWORD = 'pettocura2024';
 
 const adminLinks = [
   { href: '/admin', label: 'Dashboard', icon: FaTachometerAlt },
+  { href: '/admin/visibility', label: 'Visibility', icon: FaEye },
   { href: '/admin/stores', label: 'Store Manager', icon: FaStore },
   { href: '/admin/blog', label: 'Blog Manager', icon: FaBlog },
   { href: '/admin/services', label: 'Services', icon: FaTools },

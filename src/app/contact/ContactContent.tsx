@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { PageGate } from '@/components/PageGate';
+import { SectionGate } from '@/components/SectionGate';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
@@ -27,8 +29,9 @@ export default function ContactContent() {
   };
 
   return (
-    <>
-      <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
+    <PageGate pageKey="contact">
+      <SectionGate id="contact-header">
+        <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Get In Touch</span>
@@ -36,13 +39,14 @@ export default function ContactContent() {
             <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Fill out the form below and we&apos;ll get back to you within 30 minutes during business hours.</p>
           </AnimatedSection>
         </div>
-      </section>
+        </section>
+      </SectionGate>
 
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            {/* Contact Form */}
-            <div className="lg:col-span-3">
+            <SectionGate id="contact-form">
+              <div className="lg:col-span-3">
               <AnimatedSection>
                 <div className="bg-white rounded-3xl border border-stone-200 p-8 shadow-sm">
                   {submitted ? (
@@ -150,10 +154,11 @@ export default function ContactContent() {
                   )}
                 </div>
               </AnimatedSection>
-            </div>
+              </div>
+            </SectionGate>
 
-            {/* Contact Info */}
-            <div className="lg:col-span-2 space-y-6">
+            <SectionGate id="contact-info">
+              <div className="lg:col-span-2 space-y-6">
               <AnimatedSection delay={0.1}>
                 <div className="bg-gradient-to-br from-teal-600 to-teal-700 rounded-3xl p-8 text-white">
                   <h3 className="text-xl font-bold mb-6">Contact Information</h3>
@@ -206,13 +211,14 @@ export default function ContactContent() {
                   </div>
                 </div>
               </AnimatedSection>
-            </div>
+              </div>
+            </SectionGate>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16 bg-stone-50">
+      <SectionGate id="contact-map">
+        <section className="py-16 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-8">
             <h2 className="text-2xl font-bold text-stone-900">Find Us on the Map</h2>
@@ -223,7 +229,8 @@ export default function ContactContent() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
-    </>
+        </section>
+      </SectionGate>
+    </PageGate>
   );
 }

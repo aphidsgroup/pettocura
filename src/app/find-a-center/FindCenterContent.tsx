@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import AnimatedSection from '@/components/ui/AnimatedSection';
+import { PageGate } from '@/components/PageGate';
+import { SectionGate } from '@/components/SectionGate';
 import { defaultStores, StoreLocation } from '@/data/defaults';
 import { FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
@@ -13,8 +15,9 @@ export default function FindCenterContent() {
   const stores = defaultStores;
 
   return (
-    <>
-      <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
+    <PageGate pageKey="find-a-center">
+      <SectionGate id="center-header">
+        <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Locations</span>
@@ -22,22 +25,24 @@ export default function FindCenterContent() {
             <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Visit our premium pet care centers in Nolambur & Mogappair, Chennai. Walk-ins welcome!</p>
           </AnimatedSection>
         </div>
-      </section>
+        </section>
+      </SectionGate>
 
       <section className="pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Map */}
-            <div className="lg:col-span-2">
+            <SectionGate id="center-map">
+              <div className="lg:col-span-2">
               <AnimatedSection>
                 <div className="rounded-3xl overflow-hidden shadow-lg border border-stone-200">
                   <MapComponent stores={stores} selectedStore={selectedStore} onSelectStore={setSelectedStore} />
                 </div>
               </AnimatedSection>
-            </div>
+              </div>
+            </SectionGate>
 
-            {/* Store Cards */}
-            <div className="space-y-4">
+            <SectionGate id="center-cards">
+              <div className="space-y-4">
               {stores.map((store, i) => (
                 <AnimatedSection key={store.id} delay={i * 0.1}>
                   <button
@@ -74,10 +79,11 @@ export default function FindCenterContent() {
                   </button>
                 </AnimatedSection>
               ))}
-            </div>
+              </div>
+            </SectionGate>
           </div>
         </div>
       </section>
-    </>
+    </PageGate>
   );
 }
