@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description: 'Where every tail wags with joy. Premium pet grooming, boarding, and daycare services in Chennai.',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://pettocura.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Petto Cura - Premium Pet Care',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Petto Cura — Premium Pet Care in Chennai',
     description: 'Premium pet grooming & boarding in Nolambur, Chennai. Book now!',
-    images: ['/og-image.png'],
+    images: ['https://pettocura.com/og-image.png'],
   },
   robots: {
     index: true,
