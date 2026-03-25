@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -12,6 +13,11 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const isAdmin = pathname.startsWith('/admin');
   const { isMaintenanceMode, loading } = useMaintenanceMode();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   if (isAdmin) {
     return <>{children}</>;
@@ -32,3 +38,4 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
     </>
   );
 }
+
