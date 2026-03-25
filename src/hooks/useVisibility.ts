@@ -18,6 +18,7 @@ export interface VisibilitySettings {
     'home-trust': boolean;
     'home-whyus': boolean;
     'home-cta': boolean;
+    'home-testimonials': boolean;
     // Grooming
     'grooming-hero': boolean;
     'grooming-quick-answers': boolean;
@@ -65,6 +66,7 @@ const defaultSettings: VisibilitySettings = {
     'home-trust': true,
     'home-whyus': true,
     'home-cta': true,
+    'home-testimonials': true,
     'grooming-hero': true,
     'grooming-quick-answers': true,
     'grooming-key-facts': true,

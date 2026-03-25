@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import HeroSection from '@/components/ui/HeroSection';
 import AnimatedSection from '@/components/ui/AnimatedSection';
@@ -8,10 +9,17 @@ import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 
 const services = [
-  { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500' },
-  { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access in Nolambur.', href: '/boarding', color: 'from-amber-400 to-orange-400' },
-  { icon: '🚗', title: 'Doorstep Pickup', desc: 'Free doorstep pickup & drop for grooming sessions. We come to you in Nolambur & nearby areas.', href: '/contact', color: 'from-emerald-400 to-emerald-500' },
-  { icon: '📍', title: 'Find a Center', desc: 'Visit our pet care center in Nolambur, Chennai for premium pet services.', href: '/find-a-center', color: 'from-violet-400 to-purple-500' },
+  { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500', image: '/pet-boarding.png' },
+  { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access in Nolambur.', href: '/boarding', color: 'from-amber-400 to-orange-400', image: '/pet-boarding.png' },
+  { icon: '🚗', title: 'Doorstep Pickup', desc: 'Free doorstep pickup & drop for grooming sessions. We come to you in Nolambur & nearby areas.', href: '/contact', color: 'from-emerald-400 to-emerald-500', image: '/pet-pickup.png' },
+  { icon: '📍', title: 'Find a Center', desc: 'Visit our pet care center in Nolambur, Chennai for premium pet services.', href: '/find-a-center', color: 'from-violet-400 to-purple-500', image: '/pet-boarding.png' },
+];
+
+const testimonials = [
+  { name: 'Priya S.', pet: 'Bruno (Golden Retriever)', text: 'Amazing grooming service! Bruno came back looking like a show dog. The team is so gentle and caring. Best pet grooming in Nolambur!', rating: 5 },
+  { name: 'Karthik R.', pet: 'Milo (Labrador)', text: 'The boarding facility is spotless and Milo loves it there. Live CCTV updates gave me complete peace of mind during my trip.', rating: 5 },
+  { name: 'Swetha M.', pet: 'Cookie (Shih Tzu)', text: 'Doorstep pickup is a game changer! They picked up Cookie, groomed her beautifully, and brought her back. So convenient!', rating: 5 },
+  { name: 'Arjun K.', pet: 'Rocky (German Shepherd)', text: 'Professional, punctual, and passionate about pets. Rocky actually gets excited when he sees the Petto Cura van arrive!', rating: 5 },
 ];
 
 const trustSignals = [
@@ -67,19 +75,30 @@ export default function HomePage() {
                 >
                   <Link
                     href={service.href}
-                    className="group block bg-white rounded-3xl p-8 border border-stone-100 hover:border-teal-200/60 hover:shadow-xl hover:shadow-teal-100/40 transition-all duration-500 hover:-translate-y-1 h-full"
+                    className="group block bg-white rounded-3xl overflow-hidden border border-stone-100 hover:border-teal-200/60 hover:shadow-xl hover:shadow-teal-100/40 transition-all duration-500 hover:-translate-y-1 h-full"
                   >
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-2xl mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      {service.icon}
+                    <div className="relative h-40 overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div className={`absolute bottom-3 left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center text-lg shadow-lg`}>
+                        {service.icon}
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-stone-900 mb-2 group-hover:text-teal-700 transition-colors">{service.title}</h3>
-                    <p className="text-stone-500 text-sm leading-relaxed mb-4">{service.desc}</p>
-                    <span className="inline-flex items-center text-teal-600 text-sm font-semibold group-hover:gap-2 transition-all">
-                      Learn More
-                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </span>
+                    <div className="p-5">
+                      <h3 className="text-lg font-bold text-stone-900 mb-1.5 group-hover:text-teal-700 transition-colors">{service.title}</h3>
+                      <p className="text-stone-500 text-sm leading-relaxed mb-3">{service.desc}</p>
+                      <span className="inline-flex items-center text-teal-600 text-sm font-semibold group-hover:gap-2 transition-all">
+                        Learn More
+                        <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </span>
+                    </div>
                   </Link>
                 </motion.div>
               ))}
@@ -127,6 +146,37 @@ export default function HomePage() {
                     <span className="text-3xl mb-4 block">{item.icon}</span>
                     <h3 className="text-lg font-bold text-stone-900 mb-2">{item.title}</h3>
                     <p className="text-stone-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          </div>
+        </section>
+      </SectionGate>
+
+      <SectionGate id="home-testimonials">
+        <section className="py-20 lg:py-28 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection className="text-center mb-16">
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">What Pet Parents Say</span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Loved by Pets & Their Humans</h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Real reviews from pet parents who trust Petto Cura for pet grooming in Nolambur, Chennai.</p>
+            </AnimatedSection>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {testimonials.map((t, i) => (
+                <AnimatedSection key={t.name} delay={i * 0.1}>
+                  <div className="bg-stone-50 rounded-2xl p-6 border border-stone-100 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(t.rating)].map((_, j) => (
+                        <span key={j} className="text-amber-400 text-sm">⭐</span>
+                      ))}
+                    </div>
+                    <p className="text-stone-600 text-sm leading-relaxed flex-1 mb-4">&ldquo;{t.text}&rdquo;</p>
+                    <div className="border-t border-stone-200 pt-3">
+                      <p className="font-semibold text-stone-900 text-sm">{t.name}</p>
+                      <p className="text-stone-400 text-xs">{t.pet}</p>
+                    </div>
                   </div>
                 </AnimatedSection>
               ))}
