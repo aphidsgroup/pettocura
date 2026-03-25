@@ -8,9 +8,10 @@ import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 
 const services = [
-  { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals.', href: '/grooming', color: 'from-teal-400 to-teal-500' },
-  { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access.', href: '/boarding', color: 'from-amber-400 to-orange-400' },
-  { icon: '📍', title: 'Find a Center', desc: 'Locate our pet care center in Nolambur, Chennai.', href: '/find-a-center', color: 'from-violet-400 to-purple-500' },
+  { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500' },
+  { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access in Nolambur.', href: '/boarding', color: 'from-amber-400 to-orange-400' },
+  { icon: '🚗', title: 'Doorstep Pickup', desc: 'Free doorstep pickup & drop for grooming sessions. We come to you in Nolambur & nearby areas.', href: '/contact', color: 'from-emerald-400 to-emerald-500' },
+  { icon: '📍', title: 'Find a Center', desc: 'Visit our pet care center in Nolambur, Chennai for premium pet services.', href: '/find-a-center', color: 'from-violet-400 to-purple-500' },
 ];
 
 const trustSignals = [
@@ -34,14 +35,15 @@ export default function HomePage() {
     <PageGate pageKey="home">
       <SectionGate id="home-hero">
         <HeroSection
-          badge="Now Open in Nolambur, Chennai"
+          badge="#1 Pet Grooming in Nolambur, Chennai"
           title="Where Every Tail Wags With"
           highlight="Joy"
-          subtitle="Premium pet grooming, boarding, and daycare that your furry family members deserve. Certified care in the heart of Chennai."
+          subtitle="Premium pet grooming, boarding & doorstep pickup in Nolambur, Chennai. Certified groomers, safe boarding & free pickup for your furry family."
           ctaText="Book Appointment"
           ctaHref="/contact"
           secondaryCtaText="Explore Services"
           secondaryCtaHref="/grooming"
+          showServiceCheck
         />
       </SectionGate>
 
@@ -54,7 +56,7 @@ export default function HomePage() {
               <p className="mt-4 text-stone-500 max-w-2xl mx-auto">From head-to-paw grooming to safe overnight boarding, we provide comprehensive pet care with love.</p>
             </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, i) => (
                 <motion.div
                   key={service.title}

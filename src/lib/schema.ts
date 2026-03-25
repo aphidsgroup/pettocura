@@ -30,19 +30,27 @@ export function generateLocalBusinessSchema() {
     ],
     areaServed: [
       { '@type': 'City', name: 'Chennai' },
-      { '@type': 'Place', name: 'Nolambur' },
+      { '@type': 'Place', name: 'Nolambur, Chennai' },
+      { '@type': 'Place', name: 'Anna Nagar, Chennai' },
+      { '@type': 'Place', name: 'Mogappair, Chennai' },
+      { '@type': 'Place', name: 'Ambattur, Chennai' },
+      { '@type': 'Place', name: 'Padi, Chennai' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Pet Care Services',
+      name: 'Pet Care Services in Nolambur, Chennai',
       itemListElement: [
         {
           '@type': 'Offer',
-          itemOffered: { '@type': 'Service', name: 'Pet Grooming', description: 'Full body grooming, spa, de-shedding, and puppy grooming' },
+          itemOffered: { '@type': 'Service', name: 'Pet Grooming in Nolambur', description: 'Professional pet grooming, spa treatments, de-shedding, nail trimming, and puppy grooming in Nolambur, Chennai' },
         },
         {
           '@type': 'Offer',
-          itemOffered: { '@type': 'Service', name: 'Pet Boarding', description: 'Overnight boarding, premium suites, daycare, and extended stays' },
+          itemOffered: { '@type': 'Service', name: 'Pet Boarding in Nolambur', description: 'Safe overnight pet boarding, CCTV-monitored premium suites, daycare, and extended stays in Nolambur, Chennai' },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: 'Doorstep Pet Pickup', description: 'Free doorstep pickup and drop service for pet grooming in Nolambur and nearby areas in Chennai' },
         },
       ],
     },
