@@ -1,6 +1,6 @@
 'use client';
 
-import { FaStore, FaBlog, FaTools, FaPaw, FaWrench } from 'react-icons/fa';
+import { FaStore, FaBlog, FaTools, FaPaw, FaWrench, FaStar } from 'react-icons/fa';
 import Link from 'next/link';
 import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
 
@@ -8,7 +8,7 @@ const dashboardCards = [
   { title: 'Store Locations', count: '3', desc: 'Manage center locations', icon: FaStore, href: '/admin/stores', color: 'from-teal-500 to-teal-600' },
   { title: 'Blog Posts', count: '4', desc: 'Manage pet care guides', icon: FaBlog, href: '/admin/blog', color: 'from-violet-500 to-purple-600' },
   { title: 'Services', count: '8', desc: 'Manage services & pricing', icon: FaTools, href: '/admin/services', color: 'from-amber-500 to-orange-500' },
-  { title: 'Total Pets Served', count: '5,000+', desc: 'And counting!', icon: FaPaw, href: '#', color: 'from-rose-500 to-pink-500' },
+  { title: 'Testimonials', count: '4', desc: 'Customer reviews', icon: FaStar, href: '/admin/testimonials', color: 'from-yellow-500 to-amber-500' },
 ];
 
 export default function AdminDashboard() {
@@ -96,6 +96,9 @@ export default function AdminDashboard() {
           </Link>
           <Link href="/admin/services" className="px-4 py-3 rounded-xl bg-amber-50 text-amber-700 text-sm font-medium hover:bg-amber-100 transition-colors text-center">
             Update Service Prices
+          </Link>
+          <Link href="/admin/testimonials" className="px-4 py-3 rounded-xl bg-yellow-50 text-yellow-700 text-sm font-medium hover:bg-yellow-100 transition-colors text-center">
+            Manage Testimonials
           </Link>
         </div>
       </div>

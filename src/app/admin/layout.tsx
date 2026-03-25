@@ -4,7 +4,7 @@ import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye } from 'react-icons/fa';
+import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye, FaStar } from 'react-icons/fa';
 
 const ADMIN_PASSWORD = 'pettocura2024';
 
@@ -14,6 +14,7 @@ const adminLinks = [
   { href: '/admin/stores', label: 'Store Manager', icon: FaStore },
   { href: '/admin/blog', label: 'Blog Manager', icon: FaBlog },
   { href: '/admin/services', label: 'Services', icon: FaTools },
+  { href: '/admin/testimonials', label: 'Testimonials', icon: FaStar },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
