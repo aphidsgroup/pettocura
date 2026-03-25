@@ -67,13 +67,13 @@ export default function MaintenancePage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="tel:+919876543210"
+              href="tel:+919566242236"
               className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-xl text-sm font-medium hover:bg-teal-100 transition-colors"
             >
-              📞 +91 98765 43210
+              📞 +91 95662 42236
             </a>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919566242236"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-medium hover:bg-emerald-100 transition-colors"

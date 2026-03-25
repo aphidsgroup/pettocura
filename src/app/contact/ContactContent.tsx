@@ -95,7 +95,7 @@ export default function ContactContent() {
                             id="contact-phone"
                             type="tel"
                             required
-                            placeholder="+91 98765 43210"
+                            placeholder="+91 95662 42236"
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all bg-stone-50/50"
@@ -178,7 +178,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Phone</p>
-                        <a href="tel:+919876543210" className="text-teal-100 text-sm hover:text-white transition-colors">+91 98765 43210</a>
+                        <a href="tel:+919566242236" className="text-teal-100 text-sm hover:text-white transition-colors">+91 95662 42236</a>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -205,7 +205,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">WhatsApp</p>
-                        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="text-teal-100 text-sm hover:text-white transition-colors">Chat with us</a>
+                        <a href="https://wa.me/919566242236" target="_blank" rel="noopener noreferrer" className="text-teal-100 text-sm hover:text-white transition-colors">Chat with us</a>
                       </div>
                     </div>
                   </div>

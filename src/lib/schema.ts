@@ -6,7 +6,7 @@ export function generateLocalBusinessSchema() {
     name: 'Petto Cura',
     description: 'Premium pet grooming and boarding services in Nolambur, Chennai. Professional pet care with certified groomers and safe boarding facilities.',
     url: 'https://pettocura.com',
-    telephone: '+91-98765-43210',
+    telephone: '+91-95662-42236',
     email: 'hello@pettocura.com',
     address: {
       '@type': 'PostalAddress',

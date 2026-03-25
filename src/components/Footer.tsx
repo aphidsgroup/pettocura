@@ -26,7 +26,7 @@ const footerLinks = {
 const socialLinks = [
   { icon: FaInstagram, href: 'https://www.instagram.com/pettocura', label: 'Instagram' },
   { icon: FaFacebookF, href: 'https://www.facebook.com/pettocura', label: 'Facebook' },
-  { icon: FaWhatsapp, href: 'https://wa.me/919876543210', label: 'WhatsApp' },
+  { icon: FaWhatsapp, href: 'https://wa.me/919566242236', label: 'WhatsApp' },
   { icon: FaYoutube, href: 'https://www.youtube.com/@pettocura', label: 'YouTube' },
 ];
 

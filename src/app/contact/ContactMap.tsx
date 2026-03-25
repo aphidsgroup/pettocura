@@ -36,7 +36,7 @@ export default function ContactMap() {
         <div style="font-family: Inter, sans-serif;">
           <strong>Petto Cura — Nolambur</strong><br/>
           <span style="color: #57534e; font-size: 12px;">Plot.No.6, Door.No.4, M.C.K Layout, Nolambur</span><br/>
-          <span style="color: #0591AD; font-size: 12px;">+91 98765 43210</span>
+          <span style="color: #0591AD; font-size: 12px;">+91 95662 42236</span>
         </div>
       `)
       .openPopup();
