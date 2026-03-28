@@ -33,7 +33,7 @@ const keyFacts = [
   { label: 'Safety Features', value: '24/7 CCTV, Climate Control, Vet On-Call, Fire Safety' },
   { label: 'Updates', value: 'WhatsApp photo/video updates; live webcam for Premium Suite' },
   { label: 'Meals', value: '3 meals/day (customizable to pet\'s diet)' },
-  { label: 'Check-in Time', value: '8:00 AM – 8:00 PM' },
+  { label: 'Check-in Time', value: '9:00 AM – 8:00 PM' },
   { label: 'Requirements', value: 'Up-to-date vaccinations (at least 2 weeks prior)' },
 ];
 

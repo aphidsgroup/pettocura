@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import StickyBookBar from '@/components/StickyBookBar';
 import LeadPopup from '@/components/LeadPopup';
+import ReelsPlayer from '@/components/ReelsPlayer';
 import MaintenancePage from '@/components/MaintenancePage';
 import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
 
@@ -37,6 +38,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
       <WhatsAppButton />
       <StickyBookBar />
       <LeadPopup />
+      <ReelsPlayer />
     </>
   );
 }

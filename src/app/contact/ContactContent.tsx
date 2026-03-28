@@ -210,7 +210,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Hours</p>
-                        <p className="text-teal-100 text-sm">8:00 AM – 8:00 PM, 7 days/week</p>
+                        <p className="text-teal-100 text-sm">9:00 AM – 8:00 PM, 7 days/week</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">

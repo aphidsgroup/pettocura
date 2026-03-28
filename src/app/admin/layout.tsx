@@ -4,7 +4,7 @@ import { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye, FaStar } from 'react-icons/fa';
+import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye, FaStar, FaVideo } from 'react-icons/fa';
 import { supabase } from '@/lib/supabase';
 
 const ADMIN_PASSWORD = 'pettocura2024';
@@ -16,6 +16,7 @@ const adminLinks = [
   { href: '/admin/blog', label: 'Blog Manager', icon: FaBlog },
   { href: '/admin/services', label: 'Services', icon: FaTools },
   { href: '/admin/testimonials', label: 'Testimonials', icon: FaStar },
+  { href: '/admin/reels', label: 'Reels Manager', icon: FaVideo },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {

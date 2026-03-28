@@ -43,7 +43,7 @@ export const defaultStores: StoreLocation[] = [
     lng: 80.162437,
     phone: '+91 95662 42236',
     status: 'open',
-    hours: '8:00 AM – 8:00 PM',
+    hours: '9:00 AM – 8:00 PM',
   },
 ];
 

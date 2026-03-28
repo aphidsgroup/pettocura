@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/boarding', label: 'Boarding' },
   { href: '/find-a-center', label: 'Find a Center' },
   { href: '/blog', label: 'Blog' },
+  { href: '/franchise', label: 'Franchise' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -41,13 +42,13 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
             <Image
               src="/logo.png"
               alt="Petto Cura Logo"
               width={200}
               height={56}
-              className="h-14 w-auto object-contain"
+              className="h-10 sm:h-14 w-auto object-contain"
               priority
             />
           </Link>

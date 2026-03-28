@@ -33,7 +33,7 @@ const keyFacts = [
   { label: 'Animals Served', value: 'Dogs & Cats of all breeds and sizes' },
   { label: 'Products Used', value: 'pH-balanced, vet-approved, cruelty-free' },
   { label: 'Appointment Required', value: 'Recommended but walk-ins accepted' },
-  { label: 'Operating Hours', value: '8:00 AM – 8:00 PM, 7 days a week' },
+  { label: 'Operating Hours', value: '9:00 AM – 8:00 PM, 7 days a week' },
   { label: 'Certifications', value: 'Professionally trained, 5+ years average experience' },
 ];
 
