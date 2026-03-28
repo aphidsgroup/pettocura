@@ -16,7 +16,7 @@ const serviceTypes = ['Pet Grooming', 'Pet Boarding', 'Pet Walking', 'Pet Sittin
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', petType: '', service: '', message: '',
+    name: '', email: '', phone: '', petName: '', petType: '', service: '', message: '',
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -26,7 +26,7 @@ export default function ContactContent() {
     console.log('Form submitted:', formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
-    setFormData({ name: '', email: '', phone: '', petType: '', service: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', petName: '', petType: '', service: '', message: '' });
   };
 
   return (
@@ -103,6 +103,20 @@ export default function ContactContent() {
                           />
                         </div>
                         <div>
+                          <label htmlFor="contact-pet-name" className="block text-sm font-semibold text-stone-700 mb-2">Pet Name</label>
+                          <input
+                            id="contact-pet-name"
+                            type="text"
+                            placeholder="Your pet's name"
+                            value={formData.petName}
+                            onChange={(e) => setFormData({ ...formData, petName: e.target.value })}
+                            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all bg-stone-50/50"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
                           <label htmlFor="contact-pet-type" className="block text-sm font-semibold text-stone-700 mb-2">Pet Type</label>
                           <select
                             id="contact-pet-type"
@@ -116,21 +130,20 @@ export default function ContactContent() {
                             ))}
                           </select>
                         </div>
-                      </div>
-
-                      <div>
-                        <label htmlFor="contact-service" className="block text-sm font-semibold text-stone-700 mb-2">Service Needed</label>
-                        <select
-                          id="contact-service"
-                          value={formData.service}
-                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all bg-stone-50/50"
-                        >
-                          <option value="">Select service</option>
-                          {serviceTypes.map((type) => (
-                            <option key={type} value={type}>{type}</option>
-                          ))}
-                        </select>
+                        <div>
+                          <label htmlFor="contact-service" className="block text-sm font-semibold text-stone-700 mb-2">Service Needed</label>
+                          <select
+                            id="contact-service"
+                            value={formData.service}
+                            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                            className="w-full px-4 py-3 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all bg-stone-50/50"
+                          >
+                            <option value="">Select service</option>
+                            {serviceTypes.map((type) => (
+                              <option key={type} value={type}>{type}</option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
 
                       <div>

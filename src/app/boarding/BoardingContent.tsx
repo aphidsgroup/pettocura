@@ -44,6 +44,7 @@ const safetyFeatures = [
   { icon: '🔥', title: 'Fire Safety', desc: 'Smoke detectors, fire extinguishers, and emergency evacuation plan.' },
   { icon: '🐕', title: 'Size Separation', desc: 'Separate play areas and rooms for small, medium, and large pets.' },
   { icon: '🧹', title: 'Daily Sanitation', desc: 'Hospital-grade cleaning and disinfection of all areas daily.' },
+  { icon: '👩‍🏫', title: 'Handled by Trained Staff', desc: 'All pets are handled exclusively by trained, pet-loving professionals with experience in animal behavior.' },
 ];
 
 export default function BoardingContent() {
@@ -176,8 +177,67 @@ export default function BoardingContent() {
             <AnimatedSection className="text-center mb-16">
               <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Boarding Packages</span>
               <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Find the Perfect Stay</h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Choose from our flexible boarding packages — with or without meals to suit your pet&apos;s dietary needs.</p>
             </AnimatedSection>
 
+            {/* With Food / Without Food Toggle Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <AnimatedSection>
+                <div className="relative bg-white rounded-3xl border-2 border-teal-200 p-8 shadow-lg shadow-teal-50 overflow-hidden">
+                  <div className="absolute top-0 right-0 bg-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl">POPULAR</div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl">🍽️</span>
+                    <div>
+                      <h3 className="text-xl font-bold text-stone-900">With Food Package</h3>
+                      <p className="text-teal-600 text-sm font-semibold">All-inclusive care</p>
+                    </div>
+                  </div>
+                  <p className="text-stone-500 text-sm mb-5">Complete boarding with 3 nutritious meals per day, customized to your pet&apos;s dietary requirements. Includes premium kibble, fresh water station, and occasional healthy treats.</p>
+                  <ul className="space-y-2.5 mb-6">
+                    {['3 meals/day (customizable diet)', 'Premium quality pet food', 'Fresh water station 24/7', 'Healthy snacks & treats included', 'Special diet support available'].map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-sm text-stone-600">
+                        <span className="w-5 h-5 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 text-xs flex-shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="bg-teal-50 rounded-2xl p-4 text-center">
+                    <p className="text-stone-500 text-xs">Starting from</p>
+                    <p className="text-2xl font-bold text-teal-700">₹999<span className="text-sm font-normal text-stone-400">/night</span></p>
+                  </div>
+                </div>
+              </AnimatedSection>
+
+              <AnimatedSection delay={0.15}>
+                <div className="bg-white rounded-3xl border border-stone-200 p-8 hover:shadow-lg transition-shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-3xl">🏠</span>
+                    <div>
+                      <h3 className="text-xl font-bold text-stone-900">Without Food Package</h3>
+                      <p className="text-amber-600 text-sm font-semibold">Bring your own food</p>
+                    </div>
+                  </div>
+                  <p className="text-stone-500 text-sm mb-5">Safe and comfortable boarding without meals — ideal if your pet has a special diet or prescription food. You provide the food, we handle everything else.</p>
+                  <ul className="space-y-2.5 mb-6">
+                    {['Comfortable sleeping area', 'Playtime & exercise sessions', 'Fresh water station 24/7', 'WhatsApp photo/video updates', 'You bring your pet\'s food'].map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-sm text-stone-600">
+                        <span className="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 text-xs flex-shrink-0">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="bg-amber-50 rounded-2xl p-4 text-center">
+                    <p className="text-stone-500 text-xs">Starting from</p>
+                    <p className="text-2xl font-bold text-amber-700">₹699<span className="text-sm font-normal text-stone-400">/night</span></p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+
+            {/* Existing service cards from Supabase */}
+            <AnimatedSection className="text-center mb-8">
+              <h3 className="text-xl font-bold text-stone-900">Detailed Service Packages</h3>
+            </AnimatedSection>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {boardingServices.map((service, i) => (
                 <ServiceCard key={service.id} icon={service.icon} name={service.name} description={service.description} price={service.price} features={service.features} index={i} />
