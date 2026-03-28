@@ -13,6 +13,7 @@ const footerLinks = {
     { label: 'About Us', href: '/' },
     { label: 'Find a Center', href: '/find-a-center' },
     { label: 'Blog', href: '/blog' },
+    { label: 'Franchise', href: '/franchise' },
     { label: 'Contact', href: '/contact' },
   ],
   support: [

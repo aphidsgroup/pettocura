@@ -90,10 +90,10 @@ export default function FranchiseSection() {
             </button>
 
             <Link
-              href="/contact"
+              href="/franchise"
               className="block mt-3 text-stone-400 text-sm hover:text-white transition-colors"
             >
-              Or fill the contact form →
+              View Franchise Details →
             </Link>
           </motion.div>
         </div>
