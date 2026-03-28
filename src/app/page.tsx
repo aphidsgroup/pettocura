@@ -56,7 +56,6 @@ export default function HomePage() {
           ctaHref="/contact"
           secondaryCtaText="Explore Services"
           secondaryCtaHref="/grooming"
-          showServiceCheck
         />
       </SectionGate>
 

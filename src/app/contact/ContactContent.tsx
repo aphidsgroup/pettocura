@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic';
 const ContactMap = dynamic(() => import('./ContactMap'), { ssr: false, loading: () => <div className="w-full h-[400px] bg-stone-100 rounded-3xl animate-pulse" /> });
 
 const petTypes = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Other'];
-const serviceTypes = ['Grooming', 'Boarding', 'Daycare', 'Spa', 'Other'];
+const serviceTypes = ['Pet Grooming', 'Pet Boarding', 'Pet Walking', 'Pet Sitting', 'Pet Taxi', 'Pet Accessories', 'Pet Cake & Treats'];
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({

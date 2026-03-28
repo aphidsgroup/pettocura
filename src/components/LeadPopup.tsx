@@ -19,7 +19,7 @@ const serviceOptions = [
 
 export default function LeadPopup() {
   const [show, setShow] = useState(false);
-  const [form, setForm] = useState({ name: '', phone: '', pincode: '', service: '' });
+  const [form, setForm] = useState({ name: '', phone: '', service: '' });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function LeadPopup() {
     if (!form.name || !form.phone || !form.service) return;
 
     // Build WhatsApp message
-    const message = `Hi! I'm interested in ${form.service}.\n\nName: ${form.name}\nPhone: ${form.phone}${form.pincode ? `\nPincode: ${form.pincode}` : ''}`;
+    const message = `Hi! I'm interested in ${form.service}.\n\nName: ${form.name}\nPhone: ${form.phone}`;
     const waUrl = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     setSubmitted(true);
@@ -49,7 +49,7 @@ export default function LeadPopup() {
   };
 
   const handleFranchise = () => {
-    const message = `Hi! I'm interested in a Petto Cura Franchise opportunity.\n\nName: ${form.name || 'Not provided'}\nPhone: ${form.phone || 'Not provided'}${form.pincode ? `\nPincode: ${form.pincode}` : ''}`;
+    const message = `Hi! I'm interested in a Petto Cura Franchise opportunity.\n\nName: ${form.name || 'Not provided'}\nPhone: ${form.phone || 'Not provided'}`;
     const waUrl = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
   };
@@ -100,8 +100,7 @@ export default function LeadPopup() {
                   className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
+              <div>
                   <label className="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">Phone *</label>
                   <input
                     value={form.phone}
@@ -111,18 +110,6 @@ export default function LeadPopup() {
                     type="tel"
                     className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all"
                   />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">Pincode</label>
-                  <input
-                    value={form.pincode}
-                    onChange={e => setForm({ ...form, pincode: e.target.value.replace(/\D/g, '') })}
-                    placeholder="600095"
-                    maxLength={6}
-                    inputMode="numeric"
-                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 transition-all"
-                  />
-                </div>
               </div>
               <div>
                 <label className="block text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">Interested In *</label>

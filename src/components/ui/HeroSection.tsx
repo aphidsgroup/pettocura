@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import ServiceCheck from '@/components/ServiceCheck';
 
 interface HeroSectionProps {
   title: string;
@@ -13,7 +12,6 @@ interface HeroSectionProps {
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   badge?: string;
-  showServiceCheck?: boolean;
 }
 
 export default function HeroSection({
@@ -25,7 +23,6 @@ export default function HeroSection({
   secondaryCtaText,
   secondaryCtaHref,
   badge,
-  showServiceCheck = false,
 }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-stone-50 via-white to-teal-50/30 pt-32 pb-20 lg:pt-40 lg:pb-28">
@@ -110,17 +107,6 @@ export default function HeroSection({
             </Link>
           )}
         </motion.div>
-
-        {/* Serviceability Checker */}
-        {showServiceCheck && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-          >
-            <ServiceCheck />
-          </motion.div>
-        )}
       </div>
     </section>
   );
