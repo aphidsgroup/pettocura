@@ -8,6 +8,7 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
+import { useAdminData } from '@/hooks/useAdminData';
 
 const services = [
   { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500', image: '/pet-boarding.png' },
@@ -16,11 +17,11 @@ const services = [
   { icon: '📍', title: 'Find a Center', desc: 'Visit our pet care center in Nolambur, Chennai for premium pet services.', href: '/find-a-center', color: 'from-violet-400 to-purple-500', image: '/pet-boarding.png' },
 ];
 
-const testimonials = [
-  { name: 'Priya S.', pet: 'Bruno (Golden Retriever)', text: 'Amazing grooming service! Bruno came back looking like a show dog. The team is so gentle and caring. Best pet grooming in Nolambur!', rating: 5 },
-  { name: 'Karthik R.', pet: 'Milo (Labrador)', text: 'The boarding facility is spotless and Milo loves it there. Live CCTV updates gave me complete peace of mind during my trip.', rating: 5 },
-  { name: 'Swetha M.', pet: 'Cookie (Shih Tzu)', text: 'Doorstep pickup is a game changer! They picked up Cookie, groomed her beautifully, and brought her back. So convenient!', rating: 5 },
-  { name: 'Arjun K.', pet: 'Rocky (German Shepherd)', text: 'Professional, punctual, and passionate about pets. Rocky actually gets excited when he sees the Petto Cura van arrive!', rating: 5 },
+const defaultTestimonials = [
+  { id: '1', name: 'Priya S.', pet: 'Bruno (Golden Retriever)', text: 'Amazing grooming service! Bruno came back looking like a show dog. The team is so gentle and caring. Best pet grooming in Nolambur!', rating: 5 },
+  { id: '2', name: 'Karthik R.', pet: 'Milo (Labrador)', text: 'The boarding facility is spotless and Milo loves it there. Live CCTV updates gave me complete peace of mind during my trip.', rating: 5 },
+  { id: '3', name: 'Swetha M.', pet: 'Cookie (Shih Tzu)', text: 'Doorstep pickup is a game changer! They picked up Cookie, groomed her beautifully, and brought her back. So convenient!', rating: 5 },
+  { id: '4', name: 'Arjun K.', pet: 'Rocky (German Shepherd)', text: 'Professional, punctual, and passionate about pets. Rocky actually gets excited when he sees the Petto Cura van arrive!', rating: 5 },
 ];
 
 const trustSignals = [
@@ -40,6 +41,8 @@ const whyUs = [
 ];
 
 export default function HomePage() {
+  const { data: testimonials } = useAdminData('pettocura_testimonials', defaultTestimonials);
+
   return (
     <PageGate pageKey="home">
       <SectionGate id="home-hero">

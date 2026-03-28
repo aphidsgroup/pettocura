@@ -8,7 +8,8 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
-import { defaultServices } from '@/data/defaults';
+import { defaultServices, ServiceItem } from '@/data/defaults';
+import { useAdminData } from '@/hooks/useAdminData';
 import { generateFAQSchema } from '@/lib/schema';
 
 const groomingFaqs = [
@@ -37,7 +38,8 @@ const keyFacts = [
 ];
 
 export default function GroomingContent() {
-  const groomingServices = defaultServices.filter((s) => s.category === 'grooming');
+  const { data: allServices } = useAdminData<ServiceItem[]>('pettocura_services', defaultServices);
+  const groomingServices = allServices.filter((s) => s.category === 'grooming');
   const faqSchema = generateFAQSchema(groomingFaqs);
 
   return (

@@ -7,13 +7,14 @@ import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
 import { defaultStores, StoreLocation } from '@/data/defaults';
+import { useAdminData } from '@/hooks/useAdminData';
 import { FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 const MapComponent = dynamic(() => import('./MapComponent'), { ssr: false, loading: () => <div className="w-full h-[500px] bg-stone-100 rounded-3xl animate-pulse flex items-center justify-center text-stone-400">Loading map...</div> });
 
 export default function FindCenterContent() {
   const [selectedStore, setSelectedStore] = useState<StoreLocation | null>(null);
-  const stores = defaultStores;
+  const { data: stores } = useAdminData<StoreLocation[]>('pettocura_stores', defaultStores);
 
   return (
     <PageGate pageKey="find-a-center">

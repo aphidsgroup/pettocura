@@ -8,7 +8,8 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
-import { defaultServices } from '@/data/defaults';
+import { defaultServices, ServiceItem } from '@/data/defaults';
+import { useAdminData } from '@/hooks/useAdminData';
 import { generateFAQSchema } from '@/lib/schema';
 import { motion } from 'framer-motion';
 
@@ -46,7 +47,8 @@ const safetyFeatures = [
 ];
 
 export default function BoardingContent() {
-  const boardingServices = defaultServices.filter((s) => s.category === 'boarding');
+  const { data: allServices } = useAdminData<ServiceItem[]>('pettocura_services', defaultServices);
+  const boardingServices = allServices.filter((s) => s.category === 'boarding');
   const faqSchema = generateFAQSchema(boardingFaqs);
 
   return (

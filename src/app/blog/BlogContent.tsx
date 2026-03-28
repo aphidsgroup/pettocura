@@ -6,7 +6,8 @@ import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
-import { defaultBlogPosts } from '@/data/defaults';
+import { defaultBlogPosts, BlogPost } from '@/data/defaults';
+import { useAdminData } from '@/hooks/useAdminData';
 
 const categories = ['All', 'Grooming Tips', 'Boarding', 'Pet Health', 'Nutrition'];
 
@@ -19,7 +20,7 @@ const categoryColors: Record<string, string> = {
 
 export default function BlogContent() {
   const [activeCategory, setActiveCategory] = useState('All');
-  const posts = defaultBlogPosts;
+  const { data: posts } = useAdminData<BlogPost[]>('pettocura_blogs', defaultBlogPosts);
 
   const filteredPosts = activeCategory === 'All'
     ? posts
