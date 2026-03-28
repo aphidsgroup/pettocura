@@ -47,7 +47,7 @@ const safetyFeatures = [
 ];
 
 export default function BoardingContent() {
-  const { data: allServices } = useAdminData<ServiceItem[]>('pettocura_services', defaultServices);
+  const { data: allServices } = useAdminData<ServiceItem>('services', defaultServices, 'sort_order');
   const boardingServices = allServices.filter((s) => s.category === 'boarding');
   const faqSchema = generateFAQSchema(boardingFaqs);
 

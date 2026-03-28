@@ -20,7 +20,7 @@ const categoryColors: Record<string, string> = {
 
 export default function BlogContent() {
   const [activeCategory, setActiveCategory] = useState('All');
-  const { data: posts } = useAdminData<BlogPost[]>('pettocura_blogs', defaultBlogPosts);
+  const { data: posts } = useAdminData<BlogPost>('blog_posts', defaultBlogPosts);
 
   const filteredPosts = activeCategory === 'All'
     ? posts

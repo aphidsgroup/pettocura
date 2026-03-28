@@ -38,7 +38,7 @@ const keyFacts = [
 ];
 
 export default function GroomingContent() {
-  const { data: allServices } = useAdminData<ServiceItem[]>('pettocura_services', defaultServices);
+  const { data: allServices } = useAdminData<ServiceItem>('services', defaultServices, 'sort_order');
   const groomingServices = allServices.filter((s) => s.category === 'grooming');
   const faqSchema = generateFAQSchema(groomingFaqs);
 

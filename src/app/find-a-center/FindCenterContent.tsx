@@ -14,7 +14,7 @@ const MapComponent = dynamic(() => import('./MapComponent'), { ssr: false, loadi
 
 export default function FindCenterContent() {
   const [selectedStore, setSelectedStore] = useState<StoreLocation | null>(null);
-  const { data: stores } = useAdminData<StoreLocation[]>('pettocura_stores', defaultStores);
+  const { data: stores } = useAdminData<StoreLocation>('stores', defaultStores);
 
   return (
     <PageGate pageKey="find-a-center">

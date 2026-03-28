@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaMapMarkerAlt } from 'react-icons/fa';
 import { defaultStores, StoreLocation } from '@/data/defaults';
+import { supabase } from '@/lib/supabase';
+
+const TABLE = 'stores';
 
 export default function StoreManager() {
   const [stores, setStores] = useState<StoreLocation[]>([]);
@@ -10,15 +13,17 @@ export default function StoreManager() {
   const [editingStore, setEditingStore] = useState<StoreLocation | null>(null);
   const [form, setForm] = useState({ title: '', address: '', lat: '', lng: '', phone: '', status: 'open' as 'open' | 'closed', hours: '' });
 
-  useEffect(() => {
-    const saved = localStorage.getItem('pettocura_stores');
-    setStores(saved ? JSON.parse(saved) : defaultStores);
-  }, []);
-
-  const saveStores = (updated: StoreLocation[]) => {
-    setStores(updated);
-    localStorage.setItem('pettocura_stores', JSON.stringify(updated));
+  const fetchStores = async () => {
+    if (!supabase) { setStores(defaultStores); return; }
+    const { data, error } = await supabase.from(TABLE).select('*').order('created_at');
+    if (!error && data && data.length > 0) {
+      setStores(data as StoreLocation[]);
+    } else {
+      setStores(defaultStores);
+    }
   };
+
+  useEffect(() => { fetchStores(); }, []);
 
   const openAddModal = () => {
     setEditingStore(null);
@@ -32,30 +37,34 @@ export default function StoreManager() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!supabase) return;
+
+    const storeData = {
+      title: form.title,
+      address: form.address,
+      lat: parseFloat(form.lat),
+      lng: parseFloat(form.lng),
+      phone: form.phone,
+      status: form.status,
+      hours: form.hours,
+    };
+
     if (editingStore) {
-      const updated = stores.map((s) => s.id === editingStore.id ? { ...editingStore, ...form, lat: parseFloat(form.lat), lng: parseFloat(form.lng) } : s);
-      saveStores(updated);
+      await supabase.from(TABLE).update(storeData).eq('id', editingStore.id);
     } else {
-      const newStore: StoreLocation = {
-        id: `store-${Date.now()}`,
-        title: form.title,
-        address: form.address,
-        lat: parseFloat(form.lat),
-        lng: parseFloat(form.lng),
-        phone: form.phone,
-        status: form.status,
-        hours: form.hours,
-      };
-      saveStores([...stores, newStore]);
+      await supabase.from(TABLE).insert({ id: `store-${Date.now()}`, ...storeData });
     }
     setIsModalOpen(false);
+    await fetchStores();
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    if (!supabase) return;
     if (confirm('Are you sure you want to delete this store?')) {
-      saveStores(stores.filter((s) => s.id !== id));
+      await supabase.from(TABLE).delete().eq('id', id);
+      await fetchStores();
     }
   };
 
@@ -71,7 +80,6 @@ export default function StoreManager() {
         </button>
       </div>
 
-      {/* Table */}
       <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -122,7 +130,6 @@ export default function StoreManager() {
         </div>
       </div>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl">

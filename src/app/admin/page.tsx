@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaStore, FaBlog, FaTools, FaWrench, FaStar, FaLock } from 'react-icons/fa';
 import Link from 'next/link';
 import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
+import { supabase } from '@/lib/supabase';
 
-const PASSWORD_KEY = 'pettocura_admin_password';
 const DEFAULT_PASSWORD = 'pettocura2024';
 
 const dashboardCards = [
@@ -20,11 +20,16 @@ export default function AdminDashboard() {
   const [pwForm, setPwForm] = useState({ current: '', newPw: '', confirm: '' });
   const [pwMsg, setPwMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setPwMsg(null);
 
-    const storedPw = localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
+    // Get current password from Supabase
+    let storedPw = DEFAULT_PASSWORD;
+    if (supabase) {
+      const { data } = await supabase.from('site_settings').select('value').eq('key', 'admin_password').single();
+      if (data) storedPw = data.value;
+    }
 
     if (pwForm.current !== storedPw) {
       setPwMsg({ type: 'error', text: 'Current password is incorrect.' });
@@ -39,7 +44,10 @@ export default function AdminDashboard() {
       return;
     }
 
-    localStorage.setItem(PASSWORD_KEY, pwForm.newPw);
+    // Save new password to Supabase
+    if (supabase) {
+      await supabase.from('site_settings').upsert({ key: 'admin_password', value: pwForm.newPw, updated_at: new Date().toISOString() });
+    }
     setPwMsg({ type: 'success', text: 'Password changed successfully!' });
     setPwForm({ current: '', newPw: '', confirm: '' });
   };

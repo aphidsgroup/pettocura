@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaEye, FaBold, FaItalic, FaHeading, FaListUl, FaListOl, FaLink, FaQuoteLeft, FaUndo, FaRedo, FaSearch } from 'react-icons/fa';
 import { defaultBlogPosts, BlogPost } from '@/data/defaults';
+import { supabase } from '@/lib/supabase';
 
 function generateSlug(title: string): string {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -97,13 +98,34 @@ export default function BlogManager() {
   const [geoFacts, setGeoFacts] = useState('');
 
   useEffect(() => {
-    const saved = localStorage.getItem('pettocura_blogs');
-    setPosts(saved ? JSON.parse(saved) : defaultBlogPosts);
+    const fetchPosts = async () => {
+      if (!supabase) { setPosts(defaultBlogPosts); return; }
+      const { data, error } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        // Map snake_case columns to camelCase
+        setPosts(data.map((p: Record<string, unknown>) => ({
+          id: p.id as string,
+          slug: p.slug as string,
+          title: p.title as string,
+          excerpt: p.excerpt as string,
+          content: p.content as string,
+          category: p.category as string,
+          author: p.author as string,
+          date: p.date as string,
+          readTime: (p.read_time || p.readTime || '') as string,
+          image: (p.image || '') as string,
+          metaTitle: (p.meta_title || p.metaTitle || '') as string,
+          metaDescription: (p.meta_description || p.metaDescription || '') as string,
+        })));
+      } else {
+        setPosts(defaultBlogPosts);
+      }
+    };
+    fetchPosts();
   }, []);
 
-  const savePosts = (updated: BlogPost[]) => {
+  const savePosts = async (updated: BlogPost[]) => {
     setPosts(updated);
-    localStorage.setItem('pettocura_blogs', JSON.stringify(updated));
   };
 
   const resetForm = () => {
@@ -134,13 +156,12 @@ export default function BlogManager() {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    if (!title.trim() || !content.trim()) return;
+  const handleSave = async () => {
+    if (!title.trim() || !content.trim() || !supabase) return;
     const slug = generateSlug(title);
     const finalMetaTitle = metaTitle || `${title} | Petto Cura`;
     const finalMetaDesc = metaDescription || excerpt.slice(0, 155) + (excerpt.length > 155 ? '...' : '');
 
-    // Build final content — append AEO/GEO sections if provided
     let finalContent = content;
     if (aeoQuestion && aeoAnswer) {
       finalContent += `<section class="aeo-section"><h3>Quick Answer</h3><p><strong>Q: ${aeoQuestion}</strong></p><p>${aeoAnswer}</p></section>`;
@@ -149,32 +170,42 @@ export default function BlogManager() {
       finalContent += `<section class="geo-section"><h3>Key Facts</h3>${geoFacts}</section>`;
     }
 
+    const postData = {
+      slug, title, excerpt,
+      content: finalContent,
+      category, author,
+      date: editingPost?.date || new Date().toISOString().split('T')[0],
+      read_time: `${Math.max(1, Math.ceil(content.replace(/<[^>]+>/g, '').split(' ').length / 200))} min read`,
+      image: '/blog/default.jpg',
+      meta_title: finalMetaTitle,
+      meta_description: finalMetaDesc,
+    };
+
     if (editingPost) {
-      const updated = posts.map((p) => p.id === editingPost.id ? {
-        ...editingPost, title, excerpt, content: finalContent, category, author, slug, metaTitle: finalMetaTitle, metaDescription: finalMetaDesc,
-      } : p);
-      savePosts(updated);
+      await supabase.from('blog_posts').update(postData).eq('id', editingPost.id);
     } else {
-      const newPost: BlogPost = {
-        id: `blog-${Date.now()}`,
-        slug, title, excerpt,
-        content: finalContent,
-        category, author,
-        date: new Date().toISOString().split('T')[0],
-        readTime: `${Math.max(1, Math.ceil(content.replace(/<[^>]+>/g, '').split(' ').length / 200))} min read`,
-        image: '/blog/default.jpg',
-        metaTitle: finalMetaTitle,
-        metaDescription: finalMetaDesc,
-      };
-      savePosts([newPost, ...posts]);
+      await supabase.from('blog_posts').insert({ id: `blog-${Date.now()}`, ...postData });
+    }
+
+    // Refetch
+    const { data } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
+    if (data) {
+      setPosts(data.map((p: Record<string, unknown>) => ({
+        id: p.id as string, slug: p.slug as string, title: p.title as string, excerpt: p.excerpt as string,
+        content: p.content as string, category: p.category as string, author: p.author as string,
+        date: p.date as string, readTime: (p.read_time || '') as string, image: (p.image || '') as string,
+        metaTitle: (p.meta_title || '') as string, metaDescription: (p.meta_description || '') as string,
+      })));
     }
     setIsEditing(false);
     resetForm();
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    if (!supabase) return;
     if (confirm('Delete this blog post?')) {
-      savePosts(posts.filter((p) => p.id !== id));
+      await supabase.from('blog_posts').delete().eq('id', id);
+      setPosts(posts.filter((p) => p.id !== id));
     }
   };
 

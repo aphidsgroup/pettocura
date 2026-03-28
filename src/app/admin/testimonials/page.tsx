@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { FaTrash, FaPlus, FaStar } from 'react-icons/fa';
+import { supabase } from '@/lib/supabase';
 
 interface Testimonial {
   id: string;
@@ -11,7 +12,7 @@ interface Testimonial {
   rating: number;
 }
 
-const STORAGE_KEY = 'pettocura_testimonials';
+const TABLE = 'testimonials';
 
 const defaultTestimonials: Testimonial[] = [
   { id: '1', name: 'Priya S.', pet: 'Bruno (Golden Retriever)', text: 'Amazing grooming service! Bruno came back looking like a show dog. The team is so gentle and caring. Best pet grooming in Nolambur!', rating: 5 },
@@ -25,30 +26,31 @@ export default function AdminTestimonials() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ name: '', pet: '', text: '', rating: 5 });
 
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try { setTestimonials(JSON.parse(saved)); } catch { setTestimonials(defaultTestimonials); }
+  const fetchTestimonials = async () => {
+    if (!supabase) { setTestimonials(defaultTestimonials); return; }
+    const { data, error } = await supabase.from(TABLE).select('*').order('created_at');
+    if (!error && data && data.length > 0) {
+      setTestimonials(data as Testimonial[]);
     } else {
       setTestimonials(defaultTestimonials);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultTestimonials));
     }
-  }, []);
-
-  const save = (items: Testimonial[]) => {
-    setTestimonials(items);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   };
 
-  const add = () => {
-    if (!form.name || !form.text) return;
-    const newItem: Testimonial = { id: Date.now().toString(), ...form };
-    save([...testimonials, newItem]);
+  useEffect(() => { fetchTestimonials(); }, []);
+
+  const add = async () => {
+    if (!form.name || !form.text || !supabase) return;
+    await supabase.from(TABLE).insert({ id: Date.now().toString(), ...form });
     setForm({ name: '', pet: '', text: '', rating: 5 });
     setShowForm(false);
+    await fetchTestimonials();
   };
 
-  const remove = (id: string) => save(testimonials.filter(t => t.id !== id));
+  const remove = async (id: string) => {
+    if (!supabase) return;
+    await supabase.from(TABLE).delete().eq('id', id);
+    await fetchTestimonials();
+  };
 
   return (
     <div>

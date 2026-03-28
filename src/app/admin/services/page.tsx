@@ -3,21 +3,24 @@
 import { useState, useEffect } from 'react';
 import { FaEdit, FaTimes, FaSave } from 'react-icons/fa';
 import { defaultServices, ServiceItem } from '@/data/defaults';
+import { supabase } from '@/lib/supabase';
 
 export default function ServiceDashboard() {
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', description: '', price: '', features: '' });
 
-  useEffect(() => {
-    const saved = localStorage.getItem('pettocura_services');
-    setServices(saved ? JSON.parse(saved) : defaultServices);
-  }, []);
-
-  const saveServices = (updated: ServiceItem[]) => {
-    setServices(updated);
-    localStorage.setItem('pettocura_services', JSON.stringify(updated));
+  const fetchServices = async () => {
+    if (!supabase) { setServices(defaultServices); return; }
+    const { data, error } = await supabase.from('services').select('*').order('sort_order');
+    if (!error && data && data.length > 0) {
+      setServices(data as ServiceItem[]);
+    } else {
+      setServices(defaultServices);
+    }
   };
+
+  useEffect(() => { fetchServices(); }, []);
 
   const startEdit = (svc: ServiceItem) => {
     setEditingId(svc.id);
@@ -28,14 +31,16 @@ export default function ServiceDashboard() {
     setEditingId(null);
   };
 
-  const handleSave = (id: string) => {
-    const updated = services.map((s) =>
-      s.id === id
-        ? { ...s, name: form.name, description: form.description, price: form.price, features: form.features.split('\n').filter(Boolean) }
-        : s
-    );
-    saveServices(updated);
+  const handleSave = async (id: string) => {
+    if (!supabase) return;
+    await supabase.from('services').update({
+      name: form.name,
+      description: form.description,
+      price: form.price,
+      features: form.features.split('\n').filter(Boolean),
+    }).eq('id', id);
     setEditingId(null);
+    await fetchServices();
   };
 
   const groomingServices = services.filter((s) => s.category === 'grooming');

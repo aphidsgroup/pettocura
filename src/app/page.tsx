@@ -41,7 +41,7 @@ const whyUs = [
 ];
 
 export default function HomePage() {
-  const { data: testimonials } = useAdminData('pettocura_testimonials', defaultTestimonials);
+  const { data: testimonials } = useAdminData('testimonials', defaultTestimonials);
 
   return (
     <PageGate pageKey="home">

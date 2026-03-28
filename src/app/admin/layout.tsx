@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { FaStore, FaBlog, FaTools, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes, FaEye, FaStar } from 'react-icons/fa';
+import { supabase } from '@/lib/supabase';
 
 const ADMIN_PASSWORD = 'pettocura2024';
 
@@ -25,15 +26,20 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    const token = localStorage.getItem('pettocura_admin_token');
+    const token = sessionStorage.getItem('pettocura_admin_token');
     if (token === 'authenticated') setIsAuth(true);
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const storedPw = localStorage.getItem('pettocura_admin_password') || ADMIN_PASSWORD;
+    // Get password from Supabase, fallback to env/hardcoded default
+    let storedPw = ADMIN_PASSWORD;
+    if (supabase) {
+      const { data } = await supabase.from('site_settings').select('value').eq('key', 'admin_password').single();
+      if (data) storedPw = data.value;
+    }
     if (password === storedPw) {
-      localStorage.setItem('pettocura_admin_token', 'authenticated');
+      sessionStorage.setItem('pettocura_admin_token', 'authenticated');
       setIsAuth(true);
       setError('');
     } else {
@@ -42,7 +48,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('pettocura_admin_token');
+    sessionStorage.removeItem('pettocura_admin_token');
     setIsAuth(false);
   };
 

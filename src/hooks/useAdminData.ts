@@ -1,29 +1,61 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/lib/supabase';
 
 /**
- * Generic hook that reads admin-managed data from localStorage.
- * Falls back to provided defaults if no saved data exists.
- * This ensures that dashboard changes (stores, services, blogs, testimonials)
- * are reflected on the public website.
+ * Generic hook that reads/writes data from a Supabase table.
+ * Falls back to provided defaults if Supabase is unavailable.
  */
-export function useAdminData<T>(storageKey: string, defaults: T): { data: T; loaded: boolean } {
-  const [data, setData] = useState<T>(defaults);
+export function useAdminData<T>(
+  table: string,
+  defaults: T[],
+  orderBy?: string
+): {
+  data: T[];
+  loaded: boolean;
+  refetch: () => Promise<void>;
+  upsert: (item: T) => Promise<void>;
+  remove: (id: string) => Promise<void>;
+} {
+  const [data, setData] = useState<T[]>(defaults);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
+  const fetchData = useCallback(async () => {
+    if (!supabase) {
+      setLoaded(true);
+      return;
+    }
     try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setData(parsed);
+      let query = supabase.from(table).select('*');
+      if (orderBy) {
+        query = query.order(orderBy, { ascending: true });
+      }
+      const { data: rows, error } = await query;
+      if (!error && rows && rows.length > 0) {
+        setData(rows as T[]);
       }
     } catch {
-      // Use defaults on parse error
+      // Use defaults on error
     }
     setLoaded(true);
-  }, [storageKey]);
+  }, [table, orderBy]);
 
-  return { data, loaded };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const upsert = useCallback(async (item: T) => {
+    if (!supabase) return;
+    await supabase.from(table).upsert(item as Record<string, unknown>);
+    await fetchData();
+  }, [table, fetchData]);
+
+  const remove = useCallback(async (id: string) => {
+    if (!supabase) return;
+    await supabase.from(table).delete().eq('id', id);
+    await fetchData();
+  }, [table, fetchData]);
+
+  return { data, loaded, refetch: fetchData, upsert, remove };
 }
