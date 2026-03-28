@@ -1,77 +1,14 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { FaPlus, FaEdit, FaTrash, FaTimes, FaEye, FaBold, FaItalic, FaHeading, FaListUl, FaListOl, FaLink, FaQuoteLeft, FaUndo, FaRedo, FaSearch } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaPlus, FaEdit, FaTrash, FaEye, FaSearch } from 'react-icons/fa';
 import { defaultBlogPosts, BlogPost } from '@/data/defaults';
 import { supabase } from '@/lib/supabase';
+import RichTextEditor from '@/components/admin/RichTextEditor';
+import ImageUploader from '@/components/admin/ImageUploader';
 
 function generateSlug(title: string): string {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
-
-/* ─── Rich Text Editor Component ─── */
-function RichEditor({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const editorRef = useRef<HTMLDivElement>(null);
-  const isInternalChange = useRef(false);
-
-  useEffect(() => {
-    if (editorRef.current && !isInternalChange.current) {
-      if (editorRef.current.innerHTML !== value) {
-        editorRef.current.innerHTML = value;
-      }
-    }
-    isInternalChange.current = false;
-  }, [value]);
-
-  const handleInput = useCallback(() => {
-    if (editorRef.current) {
-      isInternalChange.current = true;
-      onChange(editorRef.current.innerHTML);
-    }
-  }, [onChange]);
-
-  const exec = useCallback((cmd: string, val?: string) => {
-    document.execCommand(cmd, false, val);
-    editorRef.current?.focus();
-    handleInput();
-  }, [handleInput]);
-
-  const insertHeading = useCallback((level: string) => {
-    exec('formatBlock', level);
-  }, [exec]);
-
-  return (
-    <div className="border border-stone-200 rounded-xl overflow-hidden">
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-0.5 p-2 bg-stone-50 border-b border-stone-200">
-        <button type="button" onClick={() => exec('bold')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Bold"><FaBold className="w-3 h-3" /></button>
-        <button type="button" onClick={() => exec('italic')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Italic"><FaItalic className="w-3 h-3" /></button>
-        <div className="w-px h-5 bg-stone-200 mx-1" />
-        <button type="button" onClick={() => insertHeading('H2')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors text-xs font-bold" title="Heading 2">H2</button>
-        <button type="button" onClick={() => insertHeading('H3')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors text-xs font-bold" title="Heading 3">H3</button>
-        <button type="button" onClick={() => insertHeading('H4')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors text-xs font-bold" title="Heading 4">H4</button>
-        <button type="button" onClick={() => insertHeading('P')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors text-xs" title="Paragraph">¶</button>
-        <div className="w-px h-5 bg-stone-200 mx-1" />
-        <button type="button" onClick={() => exec('insertUnorderedList')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Bullet List"><FaListUl className="w-3 h-3" /></button>
-        <button type="button" onClick={() => exec('insertOrderedList')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Numbered List"><FaListOl className="w-3 h-3" /></button>
-        <button type="button" onClick={() => exec('formatBlock', 'BLOCKQUOTE')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Blockquote"><FaQuoteLeft className="w-3 h-3" /></button>
-        <div className="w-px h-5 bg-stone-200 mx-1" />
-        <button type="button" onClick={() => { const url = prompt('Enter URL:'); if (url) exec('createLink', url); }} className="p-2 rounded-lg hover:bg-stone-200 text-stone-600 transition-colors" title="Insert Link"><FaLink className="w-3 h-3" /></button>
-        <div className="w-px h-5 bg-stone-200 mx-1" />
-        <button type="button" onClick={() => exec('undo')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-400 transition-colors" title="Undo"><FaUndo className="w-3 h-3" /></button>
-        <button type="button" onClick={() => exec('redo')} className="p-2 rounded-lg hover:bg-stone-200 text-stone-400 transition-colors" title="Redo"><FaRedo className="w-3 h-3" /></button>
-      </div>
-
-      {/* Editor Area */}
-      <div
-        ref={editorRef}
-        contentEditable
-        onInput={handleInput}
-        className="min-h-[300px] max-h-[500px] overflow-y-auto p-4 text-sm text-stone-800 focus:outline-none prose-content [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-4 [&_h2]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1 [&_p]:mb-2 [&_ul]:list-disc [&_ul]:ml-5 [&_ol]:list-decimal [&_ol]:ml-5 [&_li]:mb-1 [&_blockquote]:border-l-4 [&_blockquote]:border-teal-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-stone-500 [&_a]:text-teal-600 [&_a]:underline"
-        suppressContentEditableWarning
-      />
-    </div>
-  );
 }
 
 /* ─── Blog Manager ─── */
@@ -87,6 +24,7 @@ export default function BlogManager() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('Grooming Tips');
   const [author, setAuthor] = useState('Petto Cura Team');
+  const [featuredImage, setFeaturedImage] = useState('');
   // SEO fields
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
@@ -129,7 +67,7 @@ export default function BlogManager() {
   };
 
   const resetForm = () => {
-    setTitle(''); setExcerpt(''); setContent(''); setCategory('Grooming Tips'); setAuthor('Petto Cura Team');
+    setTitle(''); setExcerpt(''); setContent(''); setCategory('Grooming Tips'); setAuthor('Petto Cura Team'); setFeaturedImage('');
     setMetaTitle(''); setMetaDescription(''); setFocusKeyword('');
     setAeoQuestion(''); setAeoAnswer(''); setGeoFacts('');
     setActiveTab('content');
@@ -148,6 +86,7 @@ export default function BlogManager() {
     setContent(post.content);
     setCategory(post.category);
     setAuthor(post.author);
+    setFeaturedImage(post.featured_image || '');
     setMetaTitle(post.metaTitle);
     setMetaDescription(post.metaDescription);
     setFocusKeyword('');
@@ -176,7 +115,8 @@ export default function BlogManager() {
       category, author,
       date: editingPost?.date || new Date().toISOString().split('T')[0],
       read_time: `${Math.max(1, Math.ceil(content.replace(/<[^>]+>/g, '').split(' ').length / 200))} min read`,
-      image: '/blog/default.jpg',
+      image: featuredImage || '/blog/default.jpg',
+      featured_image: featuredImage,
       meta_title: finalMetaTitle,
       meta_description: finalMetaDesc,
     };
@@ -289,10 +229,22 @@ export default function BlogManager() {
               />
             </div>
 
+            {/* Featured Image */}
+            <div>
+              <ImageUploader
+                value={featuredImage}
+                onChange={setFeaturedImage}
+                folder="blog"
+                label="Featured Image"
+                maxWidth={1200}
+                maxHeight={800}
+              />
+            </div>
+
             {/* Rich Text Editor */}
             <div>
-              <label className="block text-xs font-medium text-stone-500 mb-1">Content</label>
-              <RichEditor value={content} onChange={setContent} />
+              <label className="block text-xs font-medium text-stone-500 mb-1">Content (use toolbar to add images, links, formatting)</label>
+              <RichTextEditor content={content} onChange={setContent} placeholder="Write your blog post here... Use the image button in the toolbar to insert images." />
             </div>
           </div>
         ) : (
@@ -384,8 +336,12 @@ export default function BlogManager() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {posts.map((post) => (
           <div key={post.id} className="bg-white rounded-2xl border border-stone-200 overflow-hidden hover:shadow-md transition-shadow">
-            <div className="aspect-[16/9] bg-gradient-to-br from-teal-100 to-stone-100 flex items-center justify-center text-3xl">
-              {post.category === 'Grooming Tips' ? '✂️' : post.category === 'Boarding' ? '🏠' : post.category === 'Pet Health' ? '💚' : '🍖'}
+            <div className="aspect-[16/9] bg-gradient-to-br from-teal-100 to-stone-100 flex items-center justify-center text-3xl overflow-hidden">
+              {post.featured_image ? (
+                <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" />
+              ) : (
+                post.category === 'Grooming Tips' ? '✂️' : post.category === 'Boarding' ? '🏠' : post.category === 'Pet Health' ? '💚' : '🍖'
+              )}
             </div>
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">

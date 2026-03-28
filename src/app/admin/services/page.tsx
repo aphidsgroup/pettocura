@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 import { FaEdit, FaTimes, FaSave } from 'react-icons/fa';
 import { defaultServices, ServiceItem } from '@/data/defaults';
 import { supabase } from '@/lib/supabase';
+import ImageUploader from '@/components/admin/ImageUploader';
 
 export default function ServiceDashboard() {
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: '', description: '', price: '', features: '' });
+  const [form, setForm] = useState({ name: '', description: '', price: '', features: '', image_url: '' });
 
   const fetchServices = async () => {
     if (!supabase) { setServices(defaultServices); return; }
@@ -24,7 +25,7 @@ export default function ServiceDashboard() {
 
   const startEdit = (svc: ServiceItem) => {
     setEditingId(svc.id);
-    setForm({ name: svc.name, description: svc.description, price: svc.price, features: svc.features.join('\n') });
+    setForm({ name: svc.name, description: svc.description, price: svc.price, features: svc.features.join('\n'), image_url: svc.image_url || '' });
   };
 
   const cancelEdit = () => {
@@ -38,6 +39,7 @@ export default function ServiceDashboard() {
       description: form.description,
       price: form.price,
       features: form.features.split('\n').filter(Boolean),
+      image_url: form.image_url,
     }).eq('id', id);
     setEditingId(null);
     await fetchServices();
@@ -74,6 +76,16 @@ export default function ServiceDashboard() {
                 <div>
                   <label className="block text-xs font-medium text-stone-500 mb-1">Features (one per line)</label>
                   <textarea rows={4} value={form.features} onChange={(e) => setForm({ ...form, features: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-stone-200 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400 resize-none" />
+                </div>
+                <div>
+                  <ImageUploader
+                    value={form.image_url}
+                    onChange={(url) => setForm({ ...form, image_url: url })}
+                    folder="services"
+                    label="Service Image"
+                    maxWidth={800}
+                    maxHeight={600}
+                  />
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => handleSave(svc.id)} className="inline-flex items-center gap-1.5 px-4 py-2 bg-teal-600 text-white text-sm font-semibold rounded-lg hover:bg-teal-500 transition-colors">

@@ -17,6 +17,7 @@ export interface ServiceItem {
   category: 'grooming' | 'boarding';
   icon: string;
   features: string[];
+  image_url?: string;
 }
 
 export interface BlogPost {
@@ -32,6 +33,7 @@ export interface BlogPost {
   image: string;
   metaTitle: string;
   metaDescription: string;
+  featured_image?: string;
 }
 
 export const defaultStores: StoreLocation[] = [
