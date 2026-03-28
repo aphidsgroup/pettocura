@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
+import FranchiseSection from '@/components/FranchiseSection';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
@@ -230,6 +231,10 @@ export default function ContactContent() {
           </AnimatedSection>
         </div>
         </section>
+      </SectionGate>
+
+      <SectionGate id="contact-franchise">
+        <FranchiseSection />
       </SectionGate>
     </PageGate>
   );

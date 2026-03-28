@@ -7,6 +7,7 @@ import QuickAnswers from '@/components/ui/QuickAnswers';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
+import FranchiseSection from '@/components/FranchiseSection';
 import { defaultServices } from '@/data/defaults';
 import { generateFAQSchema } from '@/lib/schema';
 
@@ -126,6 +127,10 @@ export default function GroomingContent() {
             </div>
           </div>
         </section>
+      </SectionGate>
+
+      <SectionGate id="grooming-franchise">
+        <FranchiseSection />
       </SectionGate>
     </PageGate>
   );

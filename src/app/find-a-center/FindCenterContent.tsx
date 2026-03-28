@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
+import FranchiseSection from '@/components/FranchiseSection';
 import { defaultStores, StoreLocation } from '@/data/defaults';
 import { FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
@@ -84,6 +85,10 @@ export default function FindCenterContent() {
           </div>
         </div>
       </section>
+
+      <SectionGate id="center-franchise">
+        <FranchiseSection />
+      </SectionGate>
     </PageGate>
   );
 }

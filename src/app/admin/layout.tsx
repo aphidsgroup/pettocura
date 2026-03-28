@@ -31,7 +31,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
+    const storedPw = localStorage.getItem('pettocura_admin_password') || ADMIN_PASSWORD;
+    if (password === storedPw) {
       localStorage.setItem('pettocura_admin_token', 'authenticated');
       setIsAuth(true);
       setError('');

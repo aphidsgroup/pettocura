@@ -7,6 +7,7 @@ import HeroSection from '@/components/ui/HeroSection';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
+import FranchiseSection from '@/components/FranchiseSection';
 
 const services = [
   { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500', image: '/pet-boarding.png' },
@@ -183,6 +184,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+      </SectionGate>
+
+      <SectionGate id="home-franchise">
+        <FranchiseSection />
       </SectionGate>
 
       <SectionGate id="home-cta">

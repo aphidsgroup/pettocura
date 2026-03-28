@@ -7,6 +7,7 @@ import QuickAnswers from '@/components/ui/QuickAnswers';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
+import FranchiseSection from '@/components/FranchiseSection';
 import { defaultServices } from '@/data/defaults';
 import { generateFAQSchema } from '@/lib/schema';
 import { motion } from 'framer-motion';
@@ -209,6 +210,10 @@ export default function BoardingContent() {
             </div>
           </div>
         </section>
+      </SectionGate>
+
+      <SectionGate id="boarding-franchise">
+        <FranchiseSection />
       </SectionGate>
     </PageGate>
   );

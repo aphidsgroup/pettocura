@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import StickyBookBar from '@/components/StickyBookBar';
+import LeadPopup from '@/components/LeadPopup';
 import MaintenancePage from '@/components/MaintenancePage';
 import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
 
@@ -35,6 +36,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
       <Footer />
       <WhatsAppButton />
       <StickyBookBar />
+      <LeadPopup />
     </>
   );
 }

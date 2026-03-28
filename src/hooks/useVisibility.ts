@@ -19,6 +19,7 @@ export interface VisibilitySettings {
     'home-whyus': boolean;
     'home-cta': boolean;
     'home-testimonials': boolean;
+    'home-franchise': boolean;
     // Grooming
     'grooming-hero': boolean;
     'grooming-quick-answers': boolean;
@@ -33,10 +34,12 @@ export interface VisibilitySettings {
     'boarding-quick-answers': boolean;
     'boarding-key-facts': boolean;
     'boarding-faq': boolean;
+    'boarding-franchise': boolean;
     // Find a Center
     'center-header': boolean;
     'center-map': boolean;
     'center-cards': boolean;
+    'center-franchise': boolean;
     // Blog
     'blog-header': boolean;
     'blog-filters': boolean;
@@ -46,6 +49,9 @@ export interface VisibilitySettings {
     'contact-form': boolean;
     'contact-info': boolean;
     'contact-map': boolean;
+    'contact-franchise': boolean;
+    // Grooming franchise
+    'grooming-franchise': boolean;
   };
 }
 
@@ -67,6 +73,7 @@ const defaultSettings: VisibilitySettings = {
     'home-whyus': true,
     'home-cta': true,
     'home-testimonials': true,
+    'home-franchise': true,
     'grooming-hero': true,
     'grooming-quick-answers': true,
     'grooming-key-facts': true,
@@ -79,9 +86,11 @@ const defaultSettings: VisibilitySettings = {
     'boarding-quick-answers': true,
     'boarding-key-facts': true,
     'boarding-faq': true,
+    'boarding-franchise': true,
     'center-header': true,
     'center-map': true,
     'center-cards': true,
+    'center-franchise': true,
     'blog-header': true,
     'blog-filters': true,
     'blog-grid': true,
@@ -89,6 +98,8 @@ const defaultSettings: VisibilitySettings = {
     'contact-form': true,
     'contact-info': true,
     'contact-map': true,
+    'contact-franchise': true,
+    'grooming-franchise': true,
   },
 };
 

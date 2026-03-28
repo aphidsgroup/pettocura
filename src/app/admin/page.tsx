@@ -1,8 +1,12 @@
 'use client';
 
-import { FaStore, FaBlog, FaTools, FaPaw, FaWrench, FaStar } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaStore, FaBlog, FaTools, FaWrench, FaStar, FaLock } from 'react-icons/fa';
 import Link from 'next/link';
 import { useMaintenanceMode } from '@/hooks/useMaintenanceMode';
+
+const PASSWORD_KEY = 'pettocura_admin_password';
+const DEFAULT_PASSWORD = 'pettocura2024';
 
 const dashboardCards = [
   { title: 'Store Locations', count: '3', desc: 'Manage center locations', icon: FaStore, href: '/admin/stores', color: 'from-teal-500 to-teal-600' },
@@ -13,6 +17,32 @@ const dashboardCards = [
 
 export default function AdminDashboard() {
   const { isMaintenanceMode, loading, toggle } = useMaintenanceMode();
+  const [pwForm, setPwForm] = useState({ current: '', newPw: '', confirm: '' });
+  const [pwMsg, setPwMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const handlePasswordChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPwMsg(null);
+
+    const storedPw = localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASSWORD;
+
+    if (pwForm.current !== storedPw) {
+      setPwMsg({ type: 'error', text: 'Current password is incorrect.' });
+      return;
+    }
+    if (pwForm.newPw.length < 6) {
+      setPwMsg({ type: 'error', text: 'New password must be at least 6 characters.' });
+      return;
+    }
+    if (pwForm.newPw !== pwForm.confirm) {
+      setPwMsg({ type: 'error', text: 'New passwords do not match.' });
+      return;
+    }
+
+    localStorage.setItem(PASSWORD_KEY, pwForm.newPw);
+    setPwMsg({ type: 'success', text: 'Password changed successfully!' });
+    setPwForm({ current: '', newPw: '', confirm: '' });
+  };
 
   return (
     <div>
@@ -87,7 +117,7 @@ export default function AdminDashboard() {
 
       <div className="mt-12 bg-white rounded-2xl border border-stone-200 p-8">
         <h2 className="text-lg font-bold text-stone-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <Link href="/admin/stores" className="px-4 py-3 rounded-xl bg-teal-50 text-teal-700 text-sm font-medium hover:bg-teal-100 transition-colors text-center">
             + Add Store Location
           </Link>
@@ -102,7 +132,68 @@ export default function AdminDashboard() {
           </Link>
         </div>
       </div>
+
+      {/* Change Password Section */}
+      <div className="mt-8 bg-white rounded-2xl border border-stone-200 p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-stone-100 flex items-center justify-center">
+            <FaLock className="w-4 h-4 text-stone-500" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-stone-900">Change Password</h2>
+            <p className="text-sm text-stone-500">Update your admin panel password</p>
+          </div>
+        </div>
+
+        <form onSubmit={handlePasswordChange} className="max-w-md space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1">Current Password</label>
+            <input
+              type="password"
+              value={pwForm.current}
+              onChange={e => setPwForm({ ...pwForm, current: e.target.value })}
+              required
+              placeholder="Enter current password"
+              className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1">New Password</label>
+            <input
+              type="password"
+              value={pwForm.newPw}
+              onChange={e => setPwForm({ ...pwForm, newPw: e.target.value })}
+              required
+              placeholder="Enter new password (min 6 chars)"
+              className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1">Confirm New Password</label>
+            <input
+              type="password"
+              value={pwForm.confirm}
+              onChange={e => setPwForm({ ...pwForm, confirm: e.target.value })}
+              required
+              placeholder="Confirm new password"
+              className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400"
+            />
+          </div>
+
+          {pwMsg && (
+            <div className={`p-3 rounded-xl text-sm ${pwMsg.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+              {pwMsg.text}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="px-6 py-2.5 bg-stone-900 text-white font-semibold rounded-xl hover:bg-stone-800 transition-colors text-sm"
+          >
+            Update Password
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-
