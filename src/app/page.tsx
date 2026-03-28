@@ -8,6 +8,7 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
+import ServiceStrip from '@/components/ServiceStrip';
 import { useAdminData } from '@/hooks/useAdminData';
 
 const services = [
@@ -58,6 +59,8 @@ export default function HomePage() {
           showServiceCheck
         />
       </SectionGate>
+
+      <ServiceStrip />
 
       <SectionGate id="home-services">
         <section className="py-20 lg:py-28 bg-white">
