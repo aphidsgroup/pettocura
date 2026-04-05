@@ -11,6 +11,7 @@ export interface VisibilitySettings {
     'find-a-center': boolean;
     blog: boolean;
     contact: boolean;
+    about: boolean;
   };
   sections: {
     'home-hero': boolean;
@@ -46,26 +47,31 @@ export interface VisibilitySettings {
     'contact-info': boolean;
     'contact-map': boolean;
     'contact-franchise': boolean;
+    'about-hero': boolean;
+    'about-mission': boolean;
+    'about-milestones': boolean;
+    'about-franchise': boolean;
   };
 }
 
 const TABLE = 'visibility_settings';
 
 const allKeys: string[] = [
-  'home', 'grooming', 'boarding', 'find-a-center', 'blog', 'contact',
+  'home', 'grooming', 'boarding', 'find-a-center', 'blog', 'contact', 'about',
   'home-hero', 'home-services', 'home-trust', 'home-whyus', 'home-cta', 'home-testimonials', 'home-franchise',
   'grooming-hero', 'grooming-quick-answers', 'grooming-key-facts', 'grooming-services', 'grooming-faq', 'grooming-franchise',
   'boarding-hero', 'boarding-safety', 'boarding-live-update', 'boarding-services', 'boarding-quick-answers', 'boarding-key-facts', 'boarding-faq', 'boarding-franchise',
   'center-header', 'center-map', 'center-cards', 'center-franchise',
   'blog-header', 'blog-filters', 'blog-grid',
   'contact-header', 'contact-form', 'contact-info', 'contact-map', 'contact-franchise',
+  'about-hero', 'about-mission', 'about-milestones', 'about-franchise',
 ];
 
-const pageKeys = ['home', 'grooming', 'boarding', 'find-a-center', 'blog', 'contact'];
+const pageKeys = ['home', 'grooming', 'boarding', 'find-a-center', 'blog', 'contact', 'about'];
 
 const defaultSettings: VisibilitySettings = {
   pages: {
-    home: true, grooming: true, boarding: true, 'find-a-center': true, blog: true, contact: true,
+    home: true, grooming: true, boarding: true, 'find-a-center': true, blog: true, contact: true, about: true,
   },
   sections: {
     'home-hero': true, 'home-services': true, 'home-trust': true, 'home-whyus': true, 'home-cta': true, 'home-testimonials': true, 'home-franchise': true,
@@ -74,6 +80,7 @@ const defaultSettings: VisibilitySettings = {
     'center-header': true, 'center-map': true, 'center-cards': true, 'center-franchise': true,
     'blog-header': true, 'blog-filters': true, 'blog-grid': true,
     'contact-header': true, 'contact-form': true, 'contact-info': true, 'contact-map': true, 'contact-franchise': true,
+    'about-hero': true, 'about-mission': true, 'about-milestones': true, 'about-franchise': true,
   },
 };
 

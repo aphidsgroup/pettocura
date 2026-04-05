@@ -10,7 +10,7 @@ const footerLinks = {
     { label: 'Spa Treatments', href: '/grooming' },
   ],
   company: [
-    { label: 'About Us', href: '/' },
+    { label: 'About Us', href: '/about' },
     { label: 'Find a Center', href: '/find-a-center' },
     { label: 'Blog', href: '/blog' },
     { label: 'Franchise', href: '/franchise' },
