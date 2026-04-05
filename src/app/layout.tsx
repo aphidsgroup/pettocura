@@ -65,10 +65,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://pettocura.com',
   },
-  // ⚠️ TODO: Replace with your actual code from Google Search Console → Settings → Ownership Verification → HTML Tag
-  // verification: {
-  //   google: 'PASTE_YOUR_CODE_HERE',
-  // },
+  verification: {
+    google: 'ee3804gysDuNqgvAqum7HdDNi6t4XYullRayDdK1AGM',
+  },
 };
 
 export default function RootLayout({
