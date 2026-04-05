@@ -89,13 +89,10 @@ export function generateWebSiteSchema() {
     url: 'https://pettocura.com',
     name: 'Petto Cura',
     description: 'Where every tail wags with joy — Premium Pet Grooming & Boarding in Chennai.',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://pettocura.com/search?q={search_term_string}',
-      },
-      'query-input': 'required name=search_term_string',
+    inLanguage: 'en-IN',
+    publisher: {
+      '@type': 'Organization',
+      '@id': 'https://pettocura.com/#organization',
     },
   };
 }

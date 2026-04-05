@@ -6,10 +6,14 @@ export const metadata: Metadata = {
   title: 'Pet Grooming & Spa in Nolambur | Petto Cura Chennai',
   description: 'Professional pet grooming in Nolambur, Chennai. 20% OFF Grand Opening! Full body grooming, spa, and de-shedding by certified experts. Free pickup & drop.',
   keywords: ['pet grooming Chennai', 'dog grooming Nolambur', 'cat grooming Nolambur', 'pet spa Chennai', 'premium pet grooming near me', 'pet grooming Mogappair', 'dog grooming Anna Nagar'],
+  alternates: {
+    canonical: 'https://pettocura.com/grooming',
+  },
   openGraph: {
     title: 'Pet Grooming & Spa in Nolambur | Petto Cura',
     description: 'Professional pet grooming in Nolambur, Chennai. 20% OFF Grand Opening! Certified groomers, doorstep pickup & drop.',
     url: 'https://pettocura.com/grooming',
+    images: [{ url: 'https://pettocura.com/og-image.png', width: 1200, height: 630, alt: 'Petto Cura Pet Grooming Nolambur Chennai' }],
   },
 };
 

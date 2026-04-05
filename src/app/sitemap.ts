@@ -4,14 +4,17 @@ import { defaultBlogPosts } from '@/data/defaults';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://pettocura.com';
 
+  const now = new Date().toISOString();
+
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
-    { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/grooming`, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/boarding`, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/find-a-center`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: baseUrl, changeFrequency: 'weekly', priority: 1, lastModified: now },
+    { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8, lastModified: now },
+    { url: `${baseUrl}/grooming`, changeFrequency: 'monthly', priority: 0.9, lastModified: now },
+    { url: `${baseUrl}/boarding`, changeFrequency: 'monthly', priority: 0.9, lastModified: now },
+    { url: `${baseUrl}/franchise`, changeFrequency: 'monthly', priority: 0.8, lastModified: now },
+    { url: `${baseUrl}/find-a-center`, changeFrequency: 'monthly', priority: 0.8, lastModified: now },
+    { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.8, lastModified: now },
+    { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.7, lastModified: now },
   ];
 
   const blogPages: MetadataRoute.Sitemap = defaultBlogPosts.map((post) => ({

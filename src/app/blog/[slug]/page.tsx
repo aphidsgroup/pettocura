@@ -20,6 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.metaTitle,
     description: post.metaDescription,
+    alternates: {
+      canonical: `https://pettocura.com/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.metaTitle,
       description: post.metaDescription,
@@ -27,11 +30,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: [post.author],
       url: `https://pettocura.com/blog/${post.slug}`,
+      images: [
+        {
+          url: post.image || 'https://pettocura.com/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: post.metaTitle,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.metaTitle,
       description: post.metaDescription,
+      images: [post.image || 'https://pettocura.com/og-image.png'],
     },
   };
 }

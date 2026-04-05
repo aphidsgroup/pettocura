@@ -62,9 +62,13 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
+  alternates: {
+    canonical: 'https://pettocura.com',
   },
+  // ⚠️ TODO: Replace with your actual code from Google Search Console → Settings → Ownership Verification → HTML Tag
+  // verification: {
+  //   google: 'PASTE_YOUR_CODE_HERE',
+  // },
 };
 
 export default function RootLayout({
@@ -80,7 +84,6 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="canonical" href="https://pettocura.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
