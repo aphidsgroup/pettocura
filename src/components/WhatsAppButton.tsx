@@ -1,58 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const PHONE = '919566242236';
-const DEFAULT_MESSAGE = 'Hi! I want to book a grooming session for my pet.';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function WhatsAppButton() {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { getContentValue, loading } = useSiteContent('global');
+  const waNumber = getContentValue('global_whatsapp_number', '919566242236');
 
-  useEffect(() => {
-    setMounted(true);
-    // Show tooltip after 3 seconds, hide after 8
-    const showTimer = setTimeout(() => setShowTooltip(true), 3000);
-    const hideTimer = setTimeout(() => setShowTooltip(false), 8000);
-    return () => {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
-
-  if (!mounted) return null;
-
-  const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+  if (loading) return null;
 
   return (
-    <div className="fixed bottom-24 lg:bottom-8 right-5 z-50">
-      <AnimatePresence>
-        {showTooltip && (
-          <motion.div
-            initial={{ opacity: 0, x: 10, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 10, scale: 0.9 }}
-            className="absolute right-16 top-1/2 -translate-y-1/2 bg-white rounded-xl shadow-lg border border-stone-200 px-4 py-2.5 whitespace-nowrap"
-          >
-            <p className="text-sm font-medium text-stone-700">Chat with us on WhatsApp!</p>
-            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-r border-b border-stone-200 rotate-[-45deg]" />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="group relative flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/40 hover:scale-110 transition-all duration-300"
-      >
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
-        <FaWhatsapp className="w-7 h-7 lg:w-8 lg:h-8 text-white relative z-10" />
-      </a>
-    </div>
+    <a
+      href={`https://wa.me/${waNumber}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-24 right-6 z-40 bg-emerald-500 text-white p-4 rounded-2xl shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 hover:-translate-y-1 transition-all duration-300 group"
+      aria-label="Chat on WhatsApp"
+    >
+      <div className="relative">
+        <FaWhatsapp className="w-6 h-6" />
+        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-emerald-500 rounded-full animate-ping" />
+      </div>
+      
+      {/* Tooltip */}
+      <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-stone-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+        Chat with Expert 🐾
+        <div className="absolute left-full top-1/2 -translate-y-1/2 border-8 border-transparent border-l-stone-900" />
+      </div>
+    </a>
   );
 }

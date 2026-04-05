@@ -3,24 +3,32 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaWhatsapp } from 'react-icons/fa';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const POPUP_SHOWN_KEY = 'pettocura_popup_shown';
 const POPUP_DELAY = 8000; // 8 seconds
-
-const serviceOptions = [
-  'Pet Grooming',
-  'Pet Boarding',
-  'Pet Walking',
-  'Pet Sitting',
-  'Pet Taxi',
-  'Pet Accessories',
-  'Pet Cake & Treats',
-];
 
 export default function LeadPopup() {
   const [show, setShow] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', service: '' });
   const [submitted, setSubmitted] = useState(false);
+  
+  // Use CMS content for the popup
+  const { getContentValue, loading } = useSiteContent('global');
+
+  const popupBadge = getContentValue('global_popup_badge', '🐾 Special Offer');
+  const popupTitle = getContentValue('global_popup_title', "Book Your Pet's First Session!");
+  const popupSubtitle = getContentValue('global_popup_subtitle', 'Get 20% off on your first grooming or boarding');
+  const waNumber = getContentValue('global_whatsapp_number', '919566242236');
+
+  // Parse service options from JSON string in CMS
+  const rawServices = getContentValue('global_popup_services', '["Pet Grooming","Pet Boarding","Pet Walking","Pet Sitting","Pet Taxi","Pet Accessories","Pet Cake & Treats"]');
+  let serviceOptions: string[] = [];
+  try {
+    serviceOptions = JSON.parse(rawServices);
+  } catch {
+    serviceOptions = ["Pet Grooming","Pet Boarding","Pet Walking","Pet Sitting","Pet Taxi","Pet Accessories","Pet Cake & Treats"];
+  }
 
   useEffect(() => {
     const alreadyShown = sessionStorage.getItem(POPUP_SHOWN_KEY);
@@ -42,7 +50,7 @@ export default function LeadPopup() {
 
     // Build WhatsApp message
     const message = `Hi! I'm interested in ${form.service}.\n\nName: ${form.name}\nPhone: ${form.phone}`;
-    const waUrl = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     setSubmitted(true);
     setTimeout(() => setShow(false), 2000);
@@ -50,11 +58,11 @@ export default function LeadPopup() {
 
   const handleFranchise = () => {
     const message = `Hi! I'm interested in a Petto Cura Franchise opportunity.\n\nName: ${form.name || 'Not provided'}\nPhone: ${form.phone || 'Not provided'}`;
-    const waUrl = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
   };
 
-  if (!show) return null;
+  if (!show || loading) return null;
 
   return (
     <AnimatePresence>
@@ -77,9 +85,9 @@ export default function LeadPopup() {
             <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
               <FaTimes className="w-3.5 h-3.5" />
             </button>
-            <p className="text-teal-100 text-xs font-medium uppercase tracking-wider mb-1">🐾 Special Offer</p>
-            <h2 className="text-xl font-bold">Book Your Pet&apos;s First Session!</h2>
-            <p className="text-teal-100 text-sm mt-1">Get 20% off on your first grooming or boarding</p>
+            <p className="text-teal-100 text-xs font-medium uppercase tracking-wider mb-1">{popupBadge}</p>
+            <h2 className="text-xl font-bold">{popupTitle}</h2>
+            <p className="text-teal-100 text-sm mt-1">{popupSubtitle}</p>
           </div>
 
           {submitted ? (

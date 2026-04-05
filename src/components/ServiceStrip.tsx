@@ -3,25 +3,44 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
-const stripServices = [
-  { name: 'Pet Grooming', icon: '/icons/pet-grooming.png', href: '/grooming', color: '#E8577D' },
-  { name: 'Pet Boarding', icon: '/icons/pet-boarding.png', href: '/boarding', color: '#5B6ABF' },
-  { name: 'Pet Walking', icon: '/icons/pet-walking.png', href: '/contact', color: '#D4A843' },
-  { name: 'Pet Sitting', icon: '/icons/pet-sitting.png', href: '/contact', color: '#9B6BBF' },
-  { name: 'Pet Taxi', icon: '/icons/pet-taxi.png', href: '/contact', color: '#40A68C' },
-  { name: 'Pet Accessories', icon: '/icons/pet-accessories.png', href: '/contact', color: '#E08A3E' },
-  { name: 'Pet Cake & Treats', icon: '/icons/pet-cake-treats.png', href: '/contact', color: '#D4527A' },
-];
+interface StripService {
+  name: string;
+  icon: string;
+  href: string;
+}
 
 export default function ServiceStrip() {
+  const { getContentValue, loading } = useSiteContent('global');
+
+  // Parse service strip items from JSON string in CMS
+  const rawItems = getContentValue('global_service_strip', '[{"name":"Pet Grooming","icon":"/icons/pet-grooming.png","href":"/grooming"},{"name":"Pet Boarding","icon":"/icons/pet-boarding.png","href":"/boarding"},{"name":"Pet Walking","icon":"/icons/pet-walking.png","href":"/contact"},{"name":"Pet Sitting","icon":"/icons/pet-sitting.png","href":"/contact"},{"name":"Pet Taxi","icon":"/icons/pet-taxi.png","href":"/contact"},{"name":"Pet Accessories","icon":"/icons/pet-accessories.png","href":"/contact"},{"name":"Pet Cake & Treats","icon":"/icons/pet-cake-treats.png","href":"/contact"}]');
+  
+  let stripServices: StripService[] = [];
+  try {
+    stripServices = JSON.parse(rawItems);
+  } catch {
+    stripServices = [
+      { name: 'Pet Grooming', icon: '/icons/pet-grooming.png', href: '/grooming' },
+      { name: 'Pet Boarding', icon: '/icons/pet-boarding.png', href: '/boarding' },
+      { name: 'Pet Walking', icon: '/icons/pet-walking.png', href: '/contact' },
+      { name: 'Pet Sitting', icon: '/icons/pet-sitting.png', href: '/contact' },
+      { name: 'Pet Taxi', icon: '/icons/pet-taxi.png', href: '/contact' },
+      { name: 'Pet Accessories', icon: '/icons/pet-accessories.png', href: '/contact' },
+      { name: 'Pet Cake & Treats', icon: '/icons/pet-cake-treats.png', href: '/contact' },
+    ];
+  }
+
+  if (loading) return null;
+
   return (
     <section className="service-strip-section">
       <div className="service-strip-container">
         <div className="service-strip-inner">
           {stripServices.map((svc, i) => (
             <motion.div
-              key={svc.name}
+              key={`${svc.name}-${i}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

@@ -204,7 +204,9 @@ export default function BoardingContent() {
                     </div>
                     <div className="flex-1 p-3 space-y-3 overflow-hidden">
                       <div className="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm max-w-[85%]">
-                        <div className="w-full h-28 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center text-3xl mb-2">🐕</div>
+                        <div className="w-full h-28 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center text-3xl mb-2">
+                          {getContentValue('boarding_live_phone_icon_1', '🐕')}
+                        </div>
                         <p className="text-xs text-stone-600">
                           {getContentValue('boarding_live_phone_msg_1', 'Your buddy just finished his morning playtime! He made a new friend today 🐾')}
                         </p>
@@ -217,7 +219,9 @@ export default function BoardingContent() {
                         <p className="text-[10px] text-stone-400 mt-1 text-right">1:15 PM</p>
                       </div>
                       <div className="bg-white rounded-2xl rounded-tl-sm p-3 shadow-sm max-w-[85%]">
-                        <div className="w-full h-20 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-xl flex items-center justify-center text-2xl mb-2">😴🐕</div>
+                        <div className="w-full h-20 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-xl flex items-center justify-center text-2xl mb-2">
+                          {getContentValue('boarding_live_phone_icon_3', '😴🐕')}
+                        </div>
                         <p className="text-xs text-stone-600">
                           {getContentValue('boarding_live_phone_msg_3', 'Nap time in his cozy suite. Such a good boy! 💤')}
                         </p>

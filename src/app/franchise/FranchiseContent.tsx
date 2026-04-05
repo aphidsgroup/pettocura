@@ -46,6 +46,11 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function FranchiseContent() {
   const { getContentValue, loading } = useSiteContent('franchise');
+  const { getContentValue: getGlobalValue } = useSiteContent('global');
+
+  const waNumber = getGlobalValue('global_whatsapp_number', '919566242236');
+  const businessPhone = getGlobalValue('contact_phone', '+91 95662 42236');
+
   const [form, setForm] = useState({ name: '', phone: '', email: '', city: '', investment: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
@@ -88,7 +93,7 @@ export default function FranchiseContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const message = `Hi! I'm interested in a Petto Cura Franchise.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nCity: ${form.city}\nInvestment Budget: ${form.investment}\nMessage: ${form.message || 'N/A'}`;
-    const waUrl = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
@@ -106,7 +111,7 @@ export default function FranchiseContent() {
         ctaText="Enquire Now"
         ctaHref="#franchise-form"
         secondaryCtaText="Call Us"
-        secondaryCtaHref="tel:+919566242236"
+        secondaryCtaHref={`tel:${businessPhone.replace(/\s+/g, '')}`}
       />
 
       {/* Why Franchise Section */}
@@ -372,7 +377,7 @@ export default function FranchiseContent() {
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
-                    href={`https://wa.me/919566242236?text=${encodeURIComponent(getContentValue('f_cta_wa_msg', 'Hi! I\'m interested in a Petto Cura franchise opportunity.'))}`}
+                    href={`https://wa.me/${waNumber}?text=${encodeURIComponent(getContentValue('f_cta_wa_msg', 'Hi! I\'m interested in a Petto Cura franchise opportunity.'))}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-4 bg-teal-500 text-white font-semibold rounded-2xl hover:bg-teal-400 transition-colors shadow-lg shadow-teal-500/25"
@@ -381,10 +386,10 @@ export default function FranchiseContent() {
                     {getContentValue('f_cta_wa_text', 'WhatsApp Us')}
                   </a>
                   <a
-                    href={`tel:${getContentValue('f_cta_phone', '+919566242236')}`}
+                    href={`tel:${businessPhone.replace(/\s+/g, '')}`}
                     className="px-8 py-4 bg-white/10 text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/15 transition-colors"
                   >
-                    📞 {getContentValue('f_cta_phone_text', 'Call +91 95662 42236')}
+                    📞 {getContentValue('f_cta_phone_text', `Call ${businessPhone}`)}
                   </a>
                 </div>
               </div>

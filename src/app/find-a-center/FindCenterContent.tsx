@@ -9,12 +9,20 @@ import FranchiseSection from '@/components/FranchiseSection';
 import { defaultStores, StoreLocation } from '@/data/defaults';
 import { useAdminData } from '@/hooks/useAdminData';
 import { FaPhone, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const MapComponent = dynamic(() => import('./MapComponent'), { ssr: false, loading: () => <div className="w-full h-[500px] bg-stone-100 rounded-3xl animate-pulse flex items-center justify-center text-stone-400">Loading map...</div> });
 
 export default function FindCenterContent() {
   const [selectedStore, setSelectedStore] = useState<StoreLocation | null>(null);
   const { data: stores } = useAdminData<StoreLocation>('stores', defaultStores);
+  
+  // Use CMS content for the header
+  const { getContentValue, loading } = useSiteContent('find-a-center');
+
+  const headerBadge = getContentValue('center_header_badge', 'Our Locations');
+  const headerTitle = getContentValue('center_header_title', 'Find a Center Near You');
+  const headerSubtitle = getContentValue('center_header_subtitle', 'Visit our premium pet care center in Nolambur, Chennai. Walk-ins welcome!');
 
   return (
     <PageGate pageKey="find-a-center">
@@ -22,9 +30,9 @@ export default function FindCenterContent() {
         <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Locations</span>
-            <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">Find a Center Near You</h1>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Visit our premium pet care center in Nolambur, Chennai. Walk-ins welcome!</p>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">{headerBadge}</span>
+            <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">{headerTitle}</h1>
+            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">{headerSubtitle}</p>
           </AnimatedSection>
         </div>
         </section>

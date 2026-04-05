@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaInstagram, FaFacebookF, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import { useVisibility, PageKey } from '@/hooks/useVisibility';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 // Map page hrefs → page keys for visibility filtering
 const companyLinks: { label: string; href: string; pageKey: PageKey | null }[] = [
@@ -29,22 +30,25 @@ const supportLinks = [
   { label: 'Cancellation Policy', href: '/contact' },
 ];
 
-const socialLinks = [
-  { icon: FaInstagram, href: 'https://www.instagram.com/pettocura', label: 'Instagram' },
-  { icon: FaFacebookF, href: 'https://www.facebook.com/pettocura', label: 'Facebook' },
-  { icon: FaWhatsapp, href: 'https://wa.me/919566242236', label: 'WhatsApp' },
-  { icon: FaYoutube, href: 'https://www.youtube.com/@pettocura', label: 'YouTube' },
-];
-
 export default function Footer() {
   const { isPageVisible, loaded } = useVisibility();
+  const { getContentValue, loading: contentLoading } = useSiteContent('global');
+
+  const waNumber = getContentValue('global_whatsapp_number', '919566242236');
+  const footerDesc = getContentValue('footer_description', 'Premium pet grooming and boarding services in Chennai. Where every tail wags with joy and every whisker shines with care.');
+
+  const socialLinks = [
+    { icon: FaInstagram, href: 'https://www.instagram.com/pettocura', label: 'Instagram' },
+    { icon: FaFacebookF, href: 'https://www.facebook.com/pettocura', label: 'Facebook' },
+    { icon: FaWhatsapp, href: `https://wa.me/${waNumber}`, label: 'WhatsApp' },
+    { icon: FaYoutube, href: 'https://www.youtube.com/@pettocura', label: 'YouTube' },
+  ];
 
   const visibleServiceLinks = serviceLinks.filter((link) => {
     if (!loaded || link.pageKey === null) return true;
     return isPageVisible(link.pageKey);
   });
 
-  // Deduplicate by href (e.g. Grooming appears twice for 'Pet Grooming' and 'Spa Treatments')
   const uniqueVisibleServiceLinks = visibleServiceLinks.filter(
     (link, index, self) => index === self.findIndex((l) => l.label === link.label)
   );
@@ -71,7 +75,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-stone-400 text-sm leading-relaxed max-w-sm mb-6">
-              Premium pet grooming and boarding services in Chennai. Where every tail wags with joy and every whisker shines with care.
+              {footerDesc}
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map((social) => (

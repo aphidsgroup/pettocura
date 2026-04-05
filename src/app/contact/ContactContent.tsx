@@ -9,6 +9,8 @@ import FranchiseSection from '@/components/FranchiseSection';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
+import { useSiteContent } from '@/hooks/useSiteContent';
+
 const ContactMap = dynamic(() => import('./ContactMap'), { ssr: false, loading: () => <div className="w-full h-[400px] bg-stone-100 rounded-3xl animate-pulse" /> });
 
 const petTypes = ['Dog', 'Cat', 'Bird', 'Rabbit', 'Other'];
@@ -20,6 +22,16 @@ export default function ContactContent() {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const { getContentValue, loading } = useSiteContent('contact');
+  const { getContentValue: getGlobalValue } = useSiteContent('global');
+
+  // Business Details from Global CMS
+  const businessAddress = getGlobalValue('contact_address', 'Plot.No.6, Door.No.4, M.C.K Layout, Nolambur, Chennai - 600095');
+  const businessPhone = getGlobalValue('contact_phone', '+91 95662 42236');
+  const businessEmail = getGlobalValue('contact_email', 'hello@pettocura.com');
+  const businessHours = getGlobalValue('contact_hours', '9:00 AM to 8:00 PM, 7 days/week');
+  const waNumber = getGlobalValue('global_whatsapp_number', '9566242236');
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In production, this would POST to an API route
@@ -29,15 +41,23 @@ export default function ContactContent() {
     setFormData({ name: '', email: '', phone: '', petName: '', petType: '', service: '', message: '' });
   };
 
+  if (loading) return null;
+
   return (
     <PageGate pageKey="contact">
       <SectionGate id="contact-header">
         <section className="pt-32 pb-8 bg-gradient-to-b from-stone-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Get In Touch</span>
-            <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">Book an Appointment</h1>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Fill out the form below and we&apos;ll get back to you within 30 minutes during business hours.</p>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+              {getContentValue('contact_header_badge', 'Get In Touch')}
+            </span>
+            <h1 className="mt-3 text-4xl lg:text-5xl font-bold text-stone-900">
+              {getContentValue('contact_header_title', 'Book an Appointment')}
+            </h1>
+            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+              {getContentValue('contact_header_subtitle', 'Fill out the form below and we\'ll get back to you within 30 minutes during business hours.')}
+            </p>
           </AnimatedSection>
         </div>
         </section>
@@ -183,7 +203,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Main Center</p>
-                        <p className="text-teal-100 text-sm">Plot.No.6, Door.No.4, M.C.K Layout, Nolambur, Chennai - 600095</p>
+                        <p className="text-teal-100 text-sm">{businessAddress}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -192,7 +212,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Phone</p>
-                        <a href="tel:+919566242236" className="text-teal-100 text-sm hover:text-white transition-colors">+91 95662 42236</a>
+                        <a href={`tel:${businessPhone.replace(/\s+/g, '')}`} className="text-teal-100 text-sm hover:text-white transition-colors">{businessPhone}</a>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -201,7 +221,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Email</p>
-                        <a href="mailto:hello@pettocura.com" className="text-teal-100 text-sm hover:text-white transition-colors">hello@pettocura.com</a>
+                        <a href={`mailto:${businessEmail}`} className="text-teal-100 text-sm hover:text-white transition-colors">{businessEmail}</a>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -210,7 +230,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">Hours</p>
-                        <p className="text-teal-100 text-sm">9:00 AM to 8:00 PM, 7 days/week</p>
+                        <p className="text-teal-100 text-sm">{businessHours}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -219,7 +239,7 @@ export default function ContactContent() {
                       </div>
                       <div>
                         <p className="font-semibold text-sm">WhatsApp</p>
-                        <a href="https://wa.me/919566242236" target="_blank" rel="noopener noreferrer" className="text-teal-100 text-sm hover:text-white transition-colors">Chat with us</a>
+                        <a href={`https://wa.me/${waNumber}`} target="_blank" rel="noopener noreferrer" className="text-teal-100 text-sm hover:text-white transition-colors">Chat with us</a>
                       </div>
                     </div>
                   </div>

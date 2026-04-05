@@ -10,8 +10,10 @@ const pages = [
   { key: 'about', label: 'About Us' },
   { key: 'grooming', label: 'Grooming' },
   { key: 'boarding', label: 'Boarding' },
+  { key: 'find-a-center', label: 'Find Center' },
   { key: 'contact', label: 'Contact' },
   { key: 'franchise', label: 'Franchise' },
+  { key: 'global', label: 'Common' },
 ];
 
 export default function ContentEditorPage() {

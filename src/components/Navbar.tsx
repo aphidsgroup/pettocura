@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useVisibility, PageKey } from '@/hooks/useVisibility';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 // Map nav href → page key used in visibility settings
 const navLinks: { href: string; label: string; pageKey: PageKey | null }[] = [
@@ -24,6 +25,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { isPageVisible, loaded } = useVisibility();
+  
+  // Use CMS content for global nav elements
+  const { getContentValue } = useSiteContent('global');
+  const ctaText = getContentValue('nav_cta_text', 'Book Appointment');
 
   // Filter nav links based on visibility settings
   const visibleNavLinks = navLinks.filter((link) => {
@@ -98,7 +103,7 @@ export default function Navbar() {
               href="/contact"
               className="px-5 py-2.5 bg-teal-600 text-white text-sm font-semibold rounded-xl shadow-md shadow-teal-600/20 hover:shadow-lg hover:shadow-teal-600/30 hover:-translate-y-0.5 transition-all duration-300"
             >
-              Book Appointment
+              {ctaText}
             </Link>
           </div>
 
@@ -149,7 +154,7 @@ export default function Navbar() {
                   href="/contact"
                   className="block text-center px-5 py-3 bg-teal-600 text-white text-sm font-semibold rounded-xl"
                 >
-                  Book Appointment
+                  {ctaText}
                 </Link>
               </div>
             </div>

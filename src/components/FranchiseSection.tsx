@@ -8,10 +8,12 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function FranchiseSection() {
   const { getContentValue, loading } = useSiteContent('franchise');
+  const { getContentValue: getGlobalValue } = useSiteContent('global');
 
   const handleEnquiry = () => {
+    const waNumber = getGlobalValue('global_whatsapp_number', '919566242236');
     const message = getContentValue('franchise_whatsapp_msg', 'Hi! I\'m interested in a Petto Cura franchise opportunity. Please share more details.');
-    const url = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
 
