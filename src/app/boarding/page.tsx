@@ -1,17 +1,42 @@
 import type { Metadata } from 'next';
 import BoardingContent from './BoardingContent';
+import { generateBreadcrumbSchema, generateServiceSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Pet Boarding — Safe Dog & Cat Boarding in Chennai',
-  description: 'Safe, climate-controlled pet boarding in Nolambur, Chennai. 24/7 CCTV monitoring, vet on-call, live pet updates. Overnight boarding from ₹999/night.',
-  keywords: ['pet boarding Chennai', 'dog boarding Nolambur', 'safe pet boarding Chennai', 'cat boarding Chennai', 'pet daycare Chennai'],
+  title: 'Premium Pet Boarding in Nolambur, Chennai | Petto Cura',
+  description: 'Safe, cage-free pet boarding in Nolambur, Chennai. 24/7 CCTV, live updates, and vet on-call. Climate-controlled suites from ₹1300/night.',
+  keywords: ['pet boarding Chennai', 'dog boarding Nolambur', 'safe pet boarding Chennai', 'cat boarding Chennai', 'pet daycare Chennai', 'pet hotel Chennai'],
   openGraph: {
-    title: 'Safe Pet Boarding | Petto Cura Chennai',
-    description: 'Climate-controlled boarding with 24/7 CCTV and live updates. From ₹999/night.',
+    title: 'Safe & Premium Pet Boarding | Petto Cura Chennai',
+    description: 'Cage-free climate-controlled boarding with 24/7 CCTV and live updates. From ₹1300/night.',
     url: 'https://pettocura.com/boarding',
   },
 };
 
 export default function BoardingPage() {
-  return <BoardingContent />;
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://pettocura.com' },
+    { name: 'Boarding', url: 'https://pettocura.com/boarding' },
+  ]);
+
+  const serviceSchema = generateServiceSchema(
+    'Premium Pet Boarding in Nolambur',
+    'Safe, cage-free, and climate-controlled overnight pet boarding with CCTV monitoring and live updates in Chennai.',
+    '1300',
+    'Nolambur, Chennai'
+  );
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <BoardingContent />
+    </>
+  );
 }

@@ -54,31 +54,32 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-1 list-none p-0 m-0">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-teal-700 bg-teal-50'
-                      : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="navbar-indicator"
-                      className="absolute bottom-0 left-3 right-3 h-0.5 bg-teal-600 rounded-full"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </Link>
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 block ${
+                      isActive
+                        ? 'text-teal-700 bg-teal-50'
+                        : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-indicator"
+                        className="absolute bottom-0 left-3 right-3 h-0.5 bg-teal-600 rounded-full"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                  </Link>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">

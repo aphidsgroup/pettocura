@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import LayoutShell from '@/components/LayoutShell';
-import { generateLocalBusinessSchema } from '@/lib/schema';
+import { generateLocalBusinessSchema, generateOrganizationSchema, generateWebSiteSchema } from '@/lib/schema';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,10 +24,11 @@ export const metadata: Metadata = {
     'premium pet grooming Chennai', 'safe dog boarding', 'pet daycare Chennai',
     'Petto Cura', 'best pet grooming Chennai', 'pet care Nolambur',
     'dog spa Nolambur Chennai', 'pet grooming near Anna Nagar',
+    'pet grooming Mogappair', 'dog grooming Mogappair',
   ],
-  authors: [{ name: 'Petto Cura' }],
   creator: 'Petto Cura',
   publisher: 'Petto Cura',
+  applicationName: 'Petto Cura',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -72,6 +73,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const localBusinessSchema = generateLocalBusinessSchema();
+  const organizationSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebSiteSchema();
 
   return (
     <html lang="en" className={inter.variable}>
@@ -81,6 +84,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className="antialiased bg-white text-stone-900">

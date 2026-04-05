@@ -2,7 +2,7 @@ export function generateLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://pettocura.com',
+    '@id': 'https://pettocura.com/#localbusiness',
     name: 'Petto Cura',
     description: 'Premium pet grooming and boarding services in Nolambur, Chennai. Professional pet care with certified groomers and safe boarding facilities.',
     url: 'https://pettocura.com',
@@ -21,7 +21,7 @@ export function generateLocalBusinessSchema() {
       latitude: 13.068643,
       longitude: 80.162437,
     },
-    openingHours: 'Mo-Su 08:00-20:00',
+    openingHours: 'Mo-Su 09:00-20:00',
     priceRange: '₹₹',
     image: 'https://pettocura.com/og-image.png',
     sameAs: [
@@ -31,10 +31,12 @@ export function generateLocalBusinessSchema() {
     areaServed: [
       { '@type': 'City', name: 'Chennai' },
       { '@type': 'Place', name: 'Nolambur, Chennai' },
-      { '@type': 'Place', name: 'Anna Nagar, Chennai' },
       { '@type': 'Place', name: 'Mogappair, Chennai' },
+      { '@type': 'Place', name: 'Anna Nagar, Chennai' },
       { '@type': 'Place', name: 'Ambattur, Chennai' },
       { '@type': 'Place', name: 'Padi, Chennai' },
+      { '@type': 'Place', name: 'Koyambedu, Chennai' },
+      { '@type': 'Place', name: 'Maduravoyal, Chennai' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -54,6 +56,60 @@ export function generateLocalBusinessSchema() {
         },
       ],
     },
+  };
+}
+
+export function generateOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://pettocura.com/#organization',
+    name: 'Petto Cura',
+    url: 'https://pettocura.com',
+    logo: 'https://pettocura.com/logo.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-95662-42236',
+      contactType: 'customer service',
+      areaServed: 'IN',
+      availableLanguage: ['en', 'hi', 'ta'],
+    },
+    sameAs: [
+      'https://www.instagram.com/pettocura',
+      'https://www.facebook.com/pettocura',
+    ],
+  };
+}
+
+export function generateWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://pettocura.com/#website',
+    url: 'https://pettocura.com',
+    name: 'Petto Cura',
+    description: 'Where every tail wags with joy — Premium Pet Grooming & Boarding in Chennai.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://pettocura.com/search?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }
 
