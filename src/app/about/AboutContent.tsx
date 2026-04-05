@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import HeroSection from '@/components/ui/HeroSection';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
@@ -57,15 +58,13 @@ export default function AboutContent() {
               <AnimatedSection>
                 <div className="relative">
                   <div className="aspect-[4/5] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200">
-                    {getContentValue('about_mission_image') ? (
-                      <img 
-                        src={getContentValue('about_mission_image')} 
-                        alt="Our Mission" 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    )}
+                    <Image 
+                      src={getContentValue('about_mission_image', '/pet-mission.png')} 
+                      alt="Our Mission" 
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="bg-white/90 backdrop-blur p-6 rounded-2xl border border-white/20">
                         <p className="text-teal-700 font-bold text-xl ring-amber-50">

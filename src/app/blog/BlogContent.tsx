@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 import { PageGate } from '@/components/PageGate';
@@ -76,11 +77,22 @@ export default function BlogContent() {
                   href={`/blog/${post.slug}`}
                   className="group block bg-white rounded-3xl border border-stone-100 overflow-hidden hover:shadow-xl hover:shadow-stone-100/80 hover:border-stone-200 transition-all duration-500 hover:-translate-y-1 h-full"
                 >
-                  {/* Image Placeholder */}
-                  <div className="aspect-[16/10] bg-gradient-to-br from-teal-100 via-cyan-50 to-amber-50 flex items-center justify-center text-5xl overflow-hidden">
-                    <span className="group-hover:scale-110 transition-transform duration-500">
-                      {post.category === 'Grooming Tips' ? '✂️' : post.category === 'Boarding' ? '🏠' : post.category === 'Pet Health' ? '💚' : '🍖'}
-                    </span>
+                  {/* Image Display */}
+                  <div className="aspect-[16/10] relative overflow-hidden bg-stone-100">
+                    {post.featured_image ? (
+                      <Image
+                        src={post.featured_image}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-teal-100 via-cyan-50 to-amber-50 flex items-center justify-center text-5xl">
+                        <span className="group-hover:scale-110 transition-transform duration-500">
+                          {post.category === 'Grooming Tips' ? '✂️' : post.category === 'Boarding' ? '🏠' : post.category === 'Pet Health' ? '💚' : '🍖'}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6">

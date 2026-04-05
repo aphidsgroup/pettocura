@@ -46,7 +46,7 @@ export default function HomePage() {
       desc: getContentValue('home_svc_1_desc', 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.'), 
       href: '/grooming', 
       color: 'from-teal-400 to-teal-500', 
-      image: getContentValue('home_svc_1_image', '/pet-boarding.png') 
+      image: getContentValue('home_svc_1_image', '/pet-grooming.png') 
     },
     { 
       icon: '🏠', 
@@ -70,7 +70,7 @@ export default function HomePage() {
       desc: getContentValue('home_svc_4_desc', 'Visit our pet care center in Nolambur, Chennai for premium pet services.'), 
       href: '/find-a-center', 
       color: 'from-violet-400 to-purple-500', 
-      image: getContentValue('home_svc_4_image', '/pet-boarding.png') 
+      image: getContentValue('home_svc_4_image', '/pet-center.png') 
     },
   ];
 
