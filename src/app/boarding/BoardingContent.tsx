@@ -21,30 +21,30 @@ const boardingFaqs = [
 ];
 
 const quickAnswers = [
-  { question: 'How much does pet boarding cost at Petto Cura, Chennai?', answer: 'Overnight Boarding starts at ₹999/night. Our Premium Suite is ₹1,799/night with private room, live webcam, and personal caretaker. Daycare is ₹599/day. Extended stays (7+ days) get discounted rates at ₹799/night.' },
-  { question: 'Is Petto Cura boarding facility safe for dogs?', answer: 'Yes. Our facility features 24/7 CCTV monitoring, climate-controlled rooms, fire safety systems, veterinarian on-call, and separate areas for different-sized pets. Only trained staff handle your pets.' },
-  { question: 'Does Petto Cura offer live pet updates during boarding?', answer: 'Yes! All boarding guests receive WhatsApp photo/video updates throughout the day. Premium Suite guests additionally get live webcam streaming for real-time monitoring.' },
+  { question: 'How much does pet boarding cost at Petto Cura, Chennai?', answer: 'Pet Boarding for all breeds starts at ₹1300/night. We offer a comfortable, hygienic, and stress-free environment for your furry friends. Food options include bringing your own (no extra charge) or using our premium meals for ₹200/day.' },
+  { question: 'Is Petto Cura boarding cage-free?', answer: 'Yes! We pride ourselves on providing a cage-free, safe, and secure environment where pets can enjoy playtime and supervision throughout their stay.' },
+  { question: 'What updates will I receive during my pet\'s stay?', answer: 'We provide daily updates, including photos and videos, so pet parents can stay connected and have peace of mind while they are away.' },
 ];
 
 const keyFacts = [
-  { label: 'Services', value: 'Overnight Boarding, Premium Suite, Daycare, Extended Stay (7+ days)' },
-  { label: 'Price Range', value: '₹599/day (Daycare) – ₹1,799/night (Premium Suite)' },
-  { label: 'Location', value: 'Nolambur, Chennai, Tamil Nadu' },
-  { label: 'Safety Features', value: '24/7 CCTV, Climate Control, Vet On-Call, Fire Safety' },
-  { label: 'Updates', value: 'WhatsApp photo/video updates; live webcam for Premium Suite' },
-  { label: 'Meals', value: '3 meals/day (customizable to pet\'s diet)' },
-  { label: 'Check-in Time', value: '9:00 AM – 8:00 PM' },
-  { label: 'Requirements', value: 'Up-to-date vaccinations (at least 2 weeks prior)' },
+  { label: 'Pricing', value: 'Starting ₹1300 / Night' },
+  { label: 'Walks', value: '2-3 Walks Daily included' },
+  { label: 'Environment', value: 'Comfortable, Hygienic & Cage-Free' },
+  { label: 'Handlers', value: 'Experienced & Caring Handlers' },
+  { label: 'Care', value: 'Stress-free & Personalized' },
+  { label: 'Food Options', value: 'Owner Food (Free) or Our Food (₹200/day)' },
+  { label: 'Daily Updates', value: 'Photo/video updates for pet parents' },
+  { label: 'Extra Services', value: 'Pickup/Drop, Grooming, Medication Care' },
 ];
 
 const safetyFeatures = [
-  { icon: '📹', title: '24/7 CCTV', desc: 'Round-the-clock video monitoring in all areas with cloud-recorded footage.' },
-  { icon: '🌡️', title: 'Climate Control', desc: 'Temperature and humidity controlled for year-round comfort.' },
-  { icon: '👨‍⚕️', title: 'Vet On-Call', desc: 'Licensed veterinarian available 24/7 for emergency care.' },
-  { icon: '🔥', title: 'Fire Safety', desc: 'Smoke detectors, fire extinguishers, and emergency evacuation plan.' },
-  { icon: '🐕', title: 'Size Separation', desc: 'Separate play areas and rooms for small, medium, and large pets.' },
-  { icon: '🧹', title: 'Daily Sanitation', desc: 'Hospital-grade cleaning and disinfection of all areas daily.' },
-  { icon: '👩‍🏫', title: 'Handled by Trained Staff', desc: 'All pets are handled exclusively by trained, pet-loving professionals with experience in animal behavior.' },
+  { icon: '🏠', title: 'Cage-Free Boarding', desc: 'A stress-free environment where pets are not confined to cages.' },
+  { icon: '🛡️', title: 'Safe & Secure', desc: 'Secure environment with constant supervision and experienced handlers.' },
+  { icon: '🧼', title: 'Hygienic Stay', desc: 'Hospital-grade cleaning and fresh water available in a clean space always.' },
+  { icon: '🚶', title: 'Daily Walks', desc: '2-3 walks daily to ensure your pet stays active and happy.' },
+  { icon: '📱', title: 'Daily Updates', desc: 'Regular photo and video updates sent directly to your phone via WhatsApp.' },
+  { icon: '💎', title: 'Premium Care', desc: 'Personalized attention and premium care for pets of all breeds.' },
+  { icon: '👩‍🏫', title: 'Trained staff', desc: 'All pets are handled exclusively by trained, pet-loving professionals with experience in animal behavior.' },
 ];
 
 export default function BoardingContent() {
@@ -61,13 +61,13 @@ export default function BoardingContent() {
 
       <SectionGate id="boarding-hero">
         <HeroSection
-          badge="Safety-First Pet Boarding"
-          title="Safe Dog Boarding in"
-          highlight="Nolambur, Chennai"
-          subtitle="Climate-controlled, CCTV-monitored boarding with live updates. Your pet's safety is our top priority — always."
-          ctaText="Book Boarding"
+          badge="Cage-Free Pet Boarding Studio"
+          title="Safe Pet Boarding for"
+          highlight="All Breeds"
+          subtitle="Experienced handlers providing a comfortable, hygienic, and stress-free stay in Nolambur, Chennai. Starting from ₹1300/night with daily walks and updates."
+          ctaText="Book Slot Now"
           ctaHref="/contact"
-          secondaryCtaText="Tour Our Facility"
+          secondaryCtaText="Tour Online"
           secondaryCtaHref="/find-a-center"
         />
       </SectionGate>

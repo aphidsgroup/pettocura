@@ -173,7 +173,7 @@ export default function StoreManager() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-stone-700 mb-1">Operating Hours</label>
-                <input value={form.hours} onChange={(e) => setForm({ ...form, hours: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400" placeholder="8:00 AM – 8:00 PM" />
+                <input value={form.hours} onChange={(e) => setForm({ ...form, hours: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-400" placeholder="9:00 AM to 8:00 PM" />
               </div>
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-2.5 rounded-xl border border-stone-200 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors">
