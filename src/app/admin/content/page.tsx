@@ -7,6 +7,7 @@ import { FaSave, FaCheck } from 'react-icons/fa';
 
 const pages = [
   { key: 'home', label: 'Home' },
+  { key: 'about', label: 'About Us' },
   { key: 'grooming', label: 'Grooming' },
   { key: 'boarding', label: 'Boarding' },
   { key: 'contact', label: 'Contact' },

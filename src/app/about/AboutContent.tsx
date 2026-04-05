@@ -7,22 +7,44 @@ import { PageGate } from '@/components/PageGate';
 import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
 
-const milestones = [
-  { year: '2020', title: 'The Vision', desc: 'Petto Cura was born from a passion for providing holistic, stress-free care for urban pets.' },
-  { year: '2022', title: 'Growth', desc: 'Opened our flagship studio in Nolambur, Chennai, with state-of-the-art grooming equipment.' },
-  { year: '2024', title: 'Innovation', desc: 'Introduced cage-free boarding and live CCTV updates for complete pet parent peace of mind.' },
-  { year: 'Present', title: 'Excellence', desc: 'Serving thousands of pets with a 4.9/5 Google rating and expanding our services.' },
-];
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function AboutContent() {
+  const { getContentValue, loading } = useSiteContent('about');
+
+  const milestones = [
+    { 
+      year: getContentValue('about_milestone_1_year', 'April 2026'), 
+      title: getContentValue('about_milestone_1_title', 'The Beginning'), 
+      desc: getContentValue('about_milestone_1_desc', 'Petto Cura was born after the joyful arrival of our own furry family member inspired us to create a better standard of pet care.') 
+    },
+    { 
+      year: getContentValue('about_milestone_2_year', 'May 2026'), 
+      title: getContentValue('about_milestone_2_title', 'Vision to Reality'), 
+      desc: getContentValue('about_milestone_2_desc', 'We launched our flagship studio in Nolambur with a focus on cage-free, stress-free environments.') 
+    },
+    { 
+      year: getContentValue('about_milestone_3_year', '2026+'), 
+      title: getContentValue('about_milestone_3_title', 'Growing Community'), 
+      desc: getContentValue('about_milestone_3_desc', 'Quickly becoming the most trusted name for pet parents in Chennai looking for premium services.') 
+    },
+    { 
+      year: getContentValue('about_milestone_4_year', 'Present'), 
+      title: getContentValue('about_milestone_4_title', 'Excellence'), 
+      desc: getContentValue('about_milestone_4_desc', 'Continuing to innovate and provide a 4.9/5 star experience for every tail that wags through our doors.') 
+    },
+  ];
+
+  if (loading) return <div className="py-20 text-center text-stone-400">Loading story...</div>;
+
   return (
     <PageGate pageKey="about">
       <SectionGate id="about-hero">
         <HeroSection
-          badge="OUR STORY"
-          title="Passion for Pets,"
-          highlight="Experts in Care"
-          subtitle="At Petto Cura, we believe every pet deserves to look and feel their best. Our mission is to provide premium, safe, and stress-free grooming and boarding services in Chennai."
+          badge={getContentValue('about_hero_badge', 'OUR STORY')}
+          title={getContentValue('about_hero_title', 'Passion for Pets,')}
+          highlight={getContentValue('about_hero_highlight', 'Experts in Care')}
+          subtitle={getContentValue('about_hero_subtitle', 'At Petto Cura, we believe every pet deserves to look and feel their best. Our mission is to provide premium, safe, and stress-free grooming and boarding services in Chennai.')}
           ctaText="View Services"
           ctaHref="/grooming"
         />
@@ -35,10 +57,20 @@ export default function AboutContent() {
               <AnimatedSection>
                 <div className="relative">
                   <div className="aspect-[4/5] bg-stone-100 rounded-3xl overflow-hidden relative border border-stone-200">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    {getContentValue('about_mission_image') ? (
+                      <img 
+                        src={getContentValue('about_mission_image')} 
+                        alt="Our Mission" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    )}
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="bg-white/90 backdrop-blur p-6 rounded-2xl border border-white/20">
-                        <p className="text-teal-700 font-bold text-xl ring-amber-50">"Our mission is to treat every pet as if they were our own."</p>
+                        <p className="text-teal-700 font-bold text-xl ring-amber-50">
+                          {getContentValue('about_mission_quote', '"Our mission is to treat every pet as if they were our own."')}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -47,10 +79,14 @@ export default function AboutContent() {
 
               <div className="space-y-8">
                 <AnimatedSection>
-                  <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Mission</span>
-                  <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900 leading-tight">Setting New Standards in Pet Care</h2>
+                  <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+                    {getContentValue('about_mission_badge', 'Our Mission')}
+                  </span>
+                  <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900 leading-tight">
+                    {getContentValue('about_mission_title', 'Setting New Standards in Pet Care')}
+                  </h2>
                   <p className="mt-4 text-stone-500 text-lg leading-relaxed">
-                    Petto Cura started with a simple goal: to eliminate the stress of pet grooming and boarding. We saw too many "caged" boarding facilities and "rushed" grooming sessions. We decided to build a studio that prioritizes empathy, patience, and professional expertise.
+                    {getContentValue('about_mission_subtitle', 'Petto Cura started with a simple goal: to eliminate the stress of pet grooming and boarding. We saw too many "caged" boarding facilities and "rushed" grooming sessions. We decided to build a studio that prioritizes empathy, patience, and professional expertise.')}
                   </p>
                 </AnimatedSection>
 
@@ -87,7 +123,7 @@ export default function AboutContent() {
               {milestones.map((m, i) => (
                 <AnimatedSection key={m.year} delay={i * 0.1}>
                   <div className="relative z-10 bg-white p-8 rounded-3xl border border-stone-100 shadow-sm hover:shadow-lg transition-all duration-300 h-full">
-                    <div className="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-bold mb-6 shadow-lg shadow-teal-600/20">
+                    <div className="w-fit px-4 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-bold mb-6 shadow-lg shadow-teal-600/20">
                       {m.year}
                     </div>
                     <h3 className="text-xl font-bold text-stone-900 mb-3">{m.title}</h3>

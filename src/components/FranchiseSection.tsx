@@ -4,12 +4,18 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
 
+import { useSiteContent } from '@/hooks/useSiteContent';
+
 export default function FranchiseSection() {
+  const { getContentValue, loading } = useSiteContent('franchise');
+
   const handleEnquiry = () => {
-    const message = 'Hi! I\'m interested in a Petto Cura franchise opportunity. Please share more details.';
+    const message = getContentValue('franchise_whatsapp_msg', 'Hi! I\'m interested in a Petto Cura franchise opportunity. Please share more details.');
     const url = `https://wa.me/919566242236?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
+
+  if (loading) return null;
 
   return (
     <section className="py-16 lg:py-20 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 relative overflow-hidden">
@@ -31,7 +37,7 @@ export default function FranchiseSection() {
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-semibold uppercase tracking-wider mb-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
-              Franchise Opportunity
+              {getContentValue('franchise_badge', 'Franchise Opportunity')}
             </motion.span>
 
             <motion.h2
@@ -41,7 +47,7 @@ export default function FranchiseSection() {
               transition={{ delay: 0.1 }}
               className="text-3xl lg:text-4xl font-bold text-white leading-tight"
             >
-              Own a <span className="text-teal-400">Petto Cura</span> Franchise
+              {getContentValue('franchise_title_pre', 'Own a')} <span className="text-teal-400">Petto Cura</span> {getContentValue('franchise_title_post', 'Franchise')}
             </motion.h2>
 
             <motion.p
@@ -51,7 +57,7 @@ export default function FranchiseSection() {
               transition={{ delay: 0.2 }}
               className="mt-4 text-stone-400 text-base leading-relaxed max-w-lg"
             >
-              Join India&apos;s fastest-growing pet care brand. Low investment, high returns, and complete training & support. Start your pet care business in your city today.
+              {getContentValue('franchise_subtitle', 'Join India\'s fastest-growing pet care brand. Low investment, high returns, and complete training & support. Start your pet care business in your city today.')}
             </motion.p>
 
             <motion.div
@@ -61,7 +67,12 @@ export default function FranchiseSection() {
               transition={{ delay: 0.3 }}
               className="mt-4 flex flex-wrap gap-3 justify-center lg:justify-start"
             >
-              {['Training & Support', 'Low Investment', 'Proven Model', 'Growing Market'].map(tag => (
+              {[
+                getContentValue('franchise_tag_1', 'Training & Support'), 
+                getContentValue('franchise_tag_2', 'Low Investment'), 
+                getContentValue('franchise_tag_3', 'Proven Model'), 
+                getContentValue('franchise_tag_4', 'Growing Market')
+              ].map(tag => (
                 <span key={tag} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300 text-xs font-medium">
                   ✓ {tag}
                 </span>
@@ -77,9 +88,13 @@ export default function FranchiseSection() {
             transition={{ delay: 0.2 }}
             className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center lg:min-w-[280px]"
           >
-            <div className="text-5xl mb-4">🏪</div>
-            <h3 className="text-xl font-bold text-white mb-2">Start Your Journey</h3>
-            <p className="text-stone-400 text-sm mb-6">Connect with us to learn more about the franchise opportunity.</p>
+            <div className="text-5xl mb-4">{getContentValue('franchise_sidebar_icon', '🏪')}</div>
+            <h3 className="text-xl font-bold text-white mb-2">
+              {getContentValue('franchise_sidebar_title', 'Start Your Journey')}
+            </h3>
+            <p className="text-stone-400 text-sm mb-6">
+              {getContentValue('franchise_sidebar_desc', 'Connect with us to learn more about the franchise opportunity.')}
+            </p>
 
             <button
               onClick={handleEnquiry}
@@ -93,7 +108,7 @@ export default function FranchiseSection() {
               href="/franchise"
               className="block mt-3 text-stone-400 text-sm hover:text-white transition-colors"
             >
-              View Franchise Details →
+              {getContentValue('franchise_link_text', 'View Franchise Details →')}
             </Link>
           </motion.div>
         </div>

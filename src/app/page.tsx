@@ -10,13 +10,7 @@ import { SectionGate } from '@/components/SectionGate';
 import FranchiseSection from '@/components/FranchiseSection';
 import ServiceStrip from '@/components/ServiceStrip';
 import { useAdminData } from '@/hooks/useAdminData';
-
-const services = [
-  { icon: '✂️', title: 'Pet Grooming', desc: 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.', href: '/grooming', color: 'from-teal-400 to-teal-500', image: '/pet-boarding.png' },
-  { icon: '🏠', title: 'Pet Boarding', desc: 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access in Nolambur.', href: '/boarding', color: 'from-amber-400 to-orange-400', image: '/pet-boarding.png' },
-  { icon: '🚗', title: 'Doorstep Pickup', desc: 'Free doorstep pickup & drop for grooming sessions. We come to you in Nolambur & nearby areas.', href: '/contact', color: 'from-emerald-400 to-emerald-500', image: '/pet-pickup.png' },
-  { icon: '📍', title: 'Find a Center', desc: 'Visit our pet care center in Nolambur, Chennai for premium pet services.', href: '/find-a-center', color: 'from-violet-400 to-purple-500', image: '/pet-boarding.png' },
-];
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const defaultTestimonials = [
   { id: '1', name: 'Priya S.', pet: 'Bruno (Golden Retriever)', text: 'Amazing grooming service! Bruno came back looking like a show dog. The team is so gentle and caring. Best pet grooming in Nolambur!', rating: 5 },
@@ -42,7 +36,45 @@ const whyUs = [
 ];
 
 export default function HomePage() {
+  const { getContentValue, loading } = useSiteContent('home');
   const { data: testimonials } = useAdminData('testimonials', defaultTestimonials);
+
+  const services = [
+    { 
+      icon: '✂️', 
+      title: getContentValue('home_svc_1_title', 'Pet Grooming'), 
+      desc: getContentValue('home_svc_1_desc', 'Full body grooming, spa treatments, and puppy-first grooms by certified professionals in Nolambur, Chennai.'), 
+      href: '/grooming', 
+      color: 'from-teal-400 to-teal-500', 
+      image: getContentValue('home_svc_1_image', '/pet-boarding.png') 
+    },
+    { 
+      icon: '🏠', 
+      title: getContentValue('home_svc_2_title', 'Pet Boarding'), 
+      desc: getContentValue('home_svc_2_desc', 'Safe, CCTV-monitored boarding with climate control and 24/7 vet access in Nolambur.'), 
+      href: '/boarding', 
+      color: 'from-amber-400 to-orange-400', 
+      image: getContentValue('home_svc_2_image', '/pet-boarding.png') 
+    },
+    { 
+      icon: '🚗', 
+      title: getContentValue('home_svc_3_title', 'Doorstep Pickup'), 
+      desc: getContentValue('home_svc_3_desc', 'Free doorstep pickup & drop for grooming sessions. We come to you in Nolambur & nearby areas.'), 
+      href: '/contact', 
+      color: 'from-emerald-400 to-emerald-500', 
+      image: getContentValue('home_svc_3_image', '/pet-pickup.png') 
+    },
+    { 
+      icon: '📍', 
+      title: getContentValue('home_svc_4_title', 'Find a Center'), 
+      desc: getContentValue('home_svc_4_desc', 'Visit our pet care center in Nolambur, Chennai for premium pet services.'), 
+      href: '/find-a-center', 
+      color: 'from-violet-400 to-purple-500', 
+      image: getContentValue('home_svc_4_image', '/pet-boarding.png') 
+    },
+  ];
+
+  if (loading) return <div className="py-20 text-center text-stone-400">Loading Petto Cura...</div>;
 
   return (
     <PageGate pageKey="home">
@@ -65,9 +97,15 @@ export default function HomePage() {
         <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
-              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Our Services</span>
-              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Everything Your Pet Needs</h2>
-              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">From head-to-paw grooming to safe overnight boarding, we provide comprehensive pet care with love.</p>
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+                {getContentValue('home_services_badge', 'Our Services')}
+              </span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+                {getContentValue('home_services_title', 'Everything Your Pet Needs')}
+              </h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+                {getContentValue('home_services_subtitle', 'From head-to-paw grooming to safe overnight boarding, we provide comprehensive pet care with love.')}
+              </p>
             </AnimatedSection>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -140,14 +178,20 @@ export default function HomePage() {
         <section className="py-20 lg:py-28 bg-stone-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
-              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Why Choose Us</span>
-              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">The Petto Cura Difference</h2>
-              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">We don&apos;t just care for pets — we treat them like family.</p>
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+                {getContentValue('home_whyus_badge', 'Why Choose Us')}
+              </span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+                {getContentValue('home_whyus_title', 'The Petto Cura Difference')}
+              </h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+                {getContentValue('home_whyus_subtitle', 'We don\'t just care for pets — we treat them like family.')}
+              </p>
             </AnimatedSection>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {whyUs.map((item, i) => (
-                <AnimatedSection key={item.title} delay={i * 0.1}>
+                <AnimatedSection key={item.title} delay={item.title === 'Certified Experts' ? 0 : 0.1}>
                   <div className="bg-white rounded-2xl p-6 border border-stone-100 hover:shadow-lg transition-shadow duration-300 h-full">
                     <span className="text-3xl mb-4 block">{item.icon}</span>
                     <h3 className="text-lg font-bold text-stone-900 mb-2">{item.title}</h3>
@@ -164,9 +208,15 @@ export default function HomePage() {
         <section className="py-20 lg:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AnimatedSection className="text-center mb-16">
-              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">What Pet Parents Say</span>
-              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Loved by Pets & Their Humans</h2>
-              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Real reviews from pet parents who trust Petto Cura for pet grooming in Nolambur, Chennai.</p>
+              <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+                {getContentValue('home_testimonials_badge', 'What Pet Parents Say')}
+              </span>
+              <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+                {getContentValue('home_testimonials_title', 'Loved by Pets & Their Humans')}
+              </h2>
+              <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+                {getContentValue('home_testimonials_subtitle', 'Real reviews from pet parents who trust Petto Cura for pet grooming in Nolambur, Chennai.')}
+              </p>
             </AnimatedSection>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -205,20 +255,24 @@ export default function HomePage() {
                   <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-teal-400/20 rounded-full blur-2xl" />
                 </div>
                 <div className="relative">
-                  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Ready to Give Your Pet the Best Care?</h2>
-                  <p className="text-teal-100 text-lg mb-8 max-w-xl mx-auto">Book a grooming session or boarding stay today. Your pet will thank you with extra tail wags! 🐾</p>
+                  <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                    {getContentValue('home_cta_title', 'Ready to Give Your Pet the Best Care?')}
+                  </h2>
+                  <p className="text-teal-100 text-lg mb-8 max-w-xl mx-auto">
+                    {getContentValue('home_cta_subtitle', 'Book a grooming session or boarding stay today. Your pet will thank you with extra tail wags! 🐾')}
+                  </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link
                       href="/contact"
                       className="px-8 py-4 bg-white text-teal-700 font-semibold rounded-2xl hover:bg-teal-50 transition-colors shadow-lg"
                     >
-                      Book Now
+                      {getContentValue('home_cta_primary', 'Book Now')}
                     </Link>
                     <Link
                       href="/find-a-center"
                       className="px-8 py-4 bg-teal-500/30 text-white font-semibold rounded-2xl border border-teal-400/30 hover:bg-teal-500/40 transition-colors"
                     >
-                      Find Nearest Center
+                      {getContentValue('home_cta_secondary', 'Find Nearest Center')}
                     </Link>
                   </div>
                 </div>

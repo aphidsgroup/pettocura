@@ -42,9 +42,48 @@ const faqs = [
   { q: 'Which cities are available for franchise?', a: 'We are currently expanding across Tamil Nadu and major Indian cities. Contact us to check availability in your area.' },
 ];
 
+import { useSiteContent } from '@/hooks/useSiteContent';
+
 export default function FranchiseContent() {
+  const { getContentValue, loading } = useSiteContent('franchise');
   const [form, setForm] = useState({ name: '', phone: '', email: '', city: '', investment: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+
+  const franchiseServices = [
+    getContentValue('f_svc_1', 'Pet Grooming'),
+    getContentValue('f_svc_2', 'Pet Boarding'),
+    getContentValue('f_svc_3', 'Pet Walking'),
+    getContentValue('f_svc_4', 'Pet Sitting'),
+    getContentValue('f_svc_5', 'Pet Taxi'),
+    getContentValue('f_svc_6', 'Pet Accessories'),
+    getContentValue('f_svc_7', 'Pet Cake & Treats'),
+  ];
+
+  const whyFranchise = [
+    { icon: FaRupeeSign, title: getContentValue('f_why_1_t', 'Low Investment'), desc: getContentValue('f_why_1_d', 'Start with a manageable investment and see returns within months. Our lean model maximizes profitability.'), color: 'bg-emerald-100 text-emerald-600' },
+    { icon: FaGraduationCap, title: getContentValue('f_why_2_t', 'Complete Training'), desc: getContentValue('f_why_2_d', 'Comprehensive training program covering pet care, grooming techniques, business operations, and customer service.'), color: 'bg-blue-100 text-blue-600' },
+    { icon: FaChartLine, title: getContentValue('f_why_3_t', 'Proven Business Model'), desc: getContentValue('f_why_3_d', 'Replicate our successful Nolambur center model. We\'ve optimized operations, pricing, and marketing for you.'), color: 'bg-purple-100 text-purple-600' },
+    { icon: FaHandshake, title: getContentValue('f_why_4_t', 'Ongoing Support'), desc: getContentValue('f_why_4_d', 'Dedicated franchise support team for marketing, operations, vendor management, and troubleshooting.'), color: 'bg-amber-100 text-amber-600' },
+    { icon: FaMapMarkerAlt, title: getContentValue('f_why_5_t', 'Territory Protection'), desc: getContentValue('f_why_5_d', 'Exclusive territory rights in your area. No other Petto Cura franchise within your protected zone.'), color: 'bg-rose-100 text-rose-600' },
+    { icon: FaStore, title: getContentValue('f_why_6_t', 'Brand Recognition'), desc: getContentValue('f_why_6_d', 'Leverage the Petto Cura brand — trusted by 5,000+ pet parents in Chennai with a 4.9 Google rating.'), color: 'bg-teal-100 text-teal-600' },
+  ];
+
+  const steps = [
+    { step: '01', title: getContentValue('f_step_1_t', 'Enquire'), desc: getContentValue('f_step_1_d', 'Fill the enquiry form or reach out via WhatsApp to express your interest.') },
+    { step: '02', title: getContentValue('f_step_2_t', 'Discussion'), desc: getContentValue('f_step_2_d', 'Our franchise team connects with you to discuss the opportunity, investment, and your goals.') },
+    { step: '03', title: getContentValue('f_step_3_t', 'Site Visit & Agreement'), desc: getContentValue('f_step_3_d', 'Visit our Nolambur center, finalize location, and sign the franchise agreement.') },
+    { step: '04', title: getContentValue('f_step_4_t', 'Training & Setup'), desc: getContentValue('f_step_4_d', 'Complete our training program while we help you set up your center with branding and equipment.') },
+    { step: '05', title: getContentValue('f_step_5_t', 'Grand Opening'), desc: getContentValue('f_step_5_d', 'Launch your Petto Cura center with our marketing support and start serving pet parents!') },
+  ];
+
+  const faqs = [
+    { q: getContentValue('f_faq_1_q', 'What is the total investment required?'), a: getContentValue('f_faq_1_a', 'The total investment ranges depending on the city and center size. Contact us for a detailed breakdown tailored to your location.') },
+    { q: getContentValue('f_faq_2_q', 'Do I need pet care experience?'), a: getContentValue('f_faq_2_a', 'No prior experience is required. We provide comprehensive training on all aspects of pet care, grooming, and business operations.') },
+    { q: getContentValue('f_faq_3_q', 'How long does it take to set up a center?'), a: getContentValue('f_faq_3_a', 'Typically 4-8 weeks from agreement signing to grand opening, depending on the location and interior work required.') },
+    { q: getContentValue('f_faq_4_q', 'What services can I offer at my franchise?'), a: getContentValue('f_faq_4_a', 'You can offer all our services: Pet Grooming, Boarding, Walking, Sitting, Taxi, Accessories, and Pet Cakes & Treats.') },
+    { q: getContentValue('f_faq_5_q', 'What kind of ongoing support do I receive?'), a: getContentValue('f_faq_5_a', 'Marketing support, operational guidance, vendor connections, technology platform, and a dedicated franchise manager.') },
+    { q: getContentValue('f_faq_6_q', 'Which cities are available for franchise?'), a: getContentValue('f_faq_6_a', 'We are currently expanding across Tamil Nadu and major Indian cities. Contact us to check availability in your area.') },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,13 +94,15 @@ export default function FranchiseContent() {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  if (loading) return <div className="py-20 text-center text-stone-400">Loading Franchise Info...</div>;
+
   return (
     <div>
       <HeroSection
-        badge="Franchise Opportunity"
-        title="Own a Petto Cura"
-        highlight="Franchise"
-        subtitle="Join India's fastest-growing pet care brand. Low investment, complete training, and a proven business model. Start your pet care empire today."
+        badge={getContentValue('f_hero_badge', 'Franchise Opportunity')}
+        title={getContentValue('f_hero_title', 'Own a Petto Cura')}
+        highlight={getContentValue('f_hero_highlight', 'Franchise')}
+        subtitle={getContentValue('f_hero_subtitle', 'Join India\'s fastest-growing pet care brand. Low investment, complete training, and a proven business model. Start your pet care empire today.')}
         ctaText="Enquire Now"
         ctaHref="#franchise-form"
         secondaryCtaText="Call Us"
@@ -72,9 +113,15 @@ export default function FranchiseContent() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Why Choose Petto Cura</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Built for Your Success</h2>
-            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">Everything you need to run a successful pet care business, backed by a brand that pet parents already trust.</p>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+              {getContentValue('f_why_badge', 'Why Choose Petto Cura')}
+            </span>
+            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+              {getContentValue('f_why_title', 'Built for Your Success')}
+            </h2>
+            <p className="mt-4 text-stone-500 max-w-2xl mx-auto">
+              {getContentValue('f_why_subtitle', 'Everything you need to run a successful pet care business, backed by a brand that pet parents already trust.')}
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -97,8 +144,12 @@ export default function FranchiseContent() {
       <section className="py-16 bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-10">
-            <h2 className="text-2xl lg:text-3xl font-bold text-white">Services You Can Offer</h2>
-            <p className="mt-2 text-teal-100">Every franchise gets access to our full service portfolio</p>
+            <h2 className="text-2xl lg:text-3xl font-bold text-white">
+              {getContentValue('f_svc_title', 'Services You Can Offer')}
+            </h2>
+            <p className="mt-2 text-teal-100">
+              {getContentValue('f_svc_subtitle', 'Every franchise gets access to our full service portfolio')}
+            </p>
           </AnimatedSection>
           <div className="flex flex-wrap justify-center gap-3">
             {franchiseServices.map((service, i) => (
@@ -121,9 +172,15 @@ export default function FranchiseContent() {
       <section className="py-20 bg-stone-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Process</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">How It Works</h2>
-            <p className="mt-4 text-stone-500">From enquiry to grand opening in 5 simple steps</p>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+              {getContentValue('f_step_badge', 'Process')}
+            </span>
+            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+              {getContentValue('f_step_title', 'How It Works')}
+            </h2>
+            <p className="mt-4 text-stone-500">
+              {getContentValue('f_step_subtitle', 'From enquiry to grand opening in 5 simple steps')}
+            </p>
           </AnimatedSection>
 
           <div className="space-y-6">
@@ -148,9 +205,15 @@ export default function FranchiseContent() {
       <section id="franchise-form" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Get Started</span>
-            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">Franchise Enquiry Form</h2>
-            <p className="mt-4 text-stone-500 max-w-xl mx-auto">Interested in owning a Petto Cura franchise? Fill in your details and our franchise team will reach out within 24 hours.</p>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+              {getContentValue('f_form_badge', 'Get Started')}
+            </span>
+            <h2 className="mt-3 text-3xl lg:text-4xl font-bold text-stone-900">
+              {getContentValue('f_form_title', 'Franchise Enquiry Form')}
+            </h2>
+            <p className="mt-4 text-stone-500 max-w-xl mx-auto">
+              {getContentValue('f_form_subtitle', 'Interested in owning a Petto Cura franchise? Fill in your details and our franchise team will reach out within 24 hours.')}
+            </p>
           </AnimatedSection>
 
           <AnimatedSection>
@@ -262,8 +325,12 @@ export default function FranchiseContent() {
       <section className="py-20 bg-stone-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-12">
-            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">Questions?</span>
-            <h2 className="mt-3 text-3xl font-bold text-stone-900">Franchise FAQs</h2>
+            <span className="text-teal-600 text-sm font-semibold uppercase tracking-wider">
+              {getContentValue('f_faq_badge', 'Questions?')}
+            </span>
+            <h2 className="mt-3 text-3xl font-bold text-stone-900">
+              {getContentValue('f_faq_title', 'Franchise FAQs')}
+            </h2>
           </AnimatedSection>
 
           <div className="space-y-4">
@@ -294,24 +361,30 @@ export default function FranchiseContent() {
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl" />
               </div>
               <div className="relative">
-                <span className="text-5xl mb-4 block">🏪</span>
-                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Ready to Start Your Pet Care Empire?</h2>
-                <p className="text-stone-400 text-lg mb-8 max-w-xl mx-auto">Join Petto Cura today and be part of India&apos;s booming pet care industry. Let&apos;s grow together! 🐾</p>
+                <span className="text-5xl mb-4 block">
+                  {getContentValue('f_cta_icon', '🏪')}
+                </span>
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                  {getContentValue('f_cta_title', 'Ready to Start Your Pet Care Empire?')}
+                </h2>
+                <p className="text-stone-400 text-lg mb-8 max-w-xl mx-auto">
+                  {getContentValue('f_cta_subtitle', 'Join Petto Cura today and be part of India\'s booming pet care industry. Let\'s grow together! 🐾')}
+                </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
-                    href="https://wa.me/919566242236?text=Hi!%20I%27m%20interested%20in%20a%20Petto%20Cura%20franchise%20opportunity."
+                    href={`https://wa.me/919566242236?text=${encodeURIComponent(getContentValue('f_cta_wa_msg', 'Hi! I\'m interested in a Petto Cura franchise opportunity.'))}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-4 bg-teal-500 text-white font-semibold rounded-2xl hover:bg-teal-400 transition-colors shadow-lg shadow-teal-500/25"
                   >
                     <FaWhatsapp className="w-5 h-5" />
-                    WhatsApp Us
+                    {getContentValue('f_cta_wa_text', 'WhatsApp Us')}
                   </a>
                   <a
-                    href="tel:+919566242236"
+                    href={`tel:${getContentValue('f_cta_phone', '+919566242236')}`}
                     className="px-8 py-4 bg-white/10 text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/15 transition-colors"
                   >
-                    📞 Call +91 95662 42236
+                    📞 {getContentValue('f_cta_phone_text', 'Call +91 95662 42236')}
                   </a>
                 </div>
               </div>
