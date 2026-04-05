@@ -1,28 +1,33 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaInstagram, FaFacebookF, FaWhatsapp, FaYoutube } from 'react-icons/fa';
+import { useVisibility, PageKey } from '@/hooks/useVisibility';
 
-const footerLinks = {
-  services: [
-    { label: 'Pet Grooming', href: '/grooming' },
-    { label: 'Pet Boarding', href: '/boarding' },
-    { label: 'Daycare', href: '/boarding' },
-    { label: 'Spa Treatments', href: '/grooming' },
-  ],
-  company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Find a Center', href: '/find-a-center' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Franchise', href: '/franchise' },
-    { label: 'Contact', href: '/contact' },
-  ],
-  support: [
-    { label: 'FAQs', href: '/grooming#faq' },
-    { label: 'Privacy Policy', href: '/contact' },
-    { label: 'Terms of Service', href: '/contact' },
-    { label: 'Cancellation Policy', href: '/contact' },
-  ],
-};
+// Map page hrefs → page keys for visibility filtering
+const companyLinks: { label: string; href: string; pageKey: PageKey | null }[] = [
+  { label: 'About Us', href: '/about', pageKey: 'about' },
+  { label: 'Find a Center', href: '/find-a-center', pageKey: 'find-a-center' },
+  { label: 'Blog', href: '/blog', pageKey: 'blog' },
+  { label: 'Franchise', href: '/franchise', pageKey: null }, // always show
+  { label: 'Contact', href: '/contact', pageKey: 'contact' },
+];
+
+// Service links map to grooming/boarding — filter based on those page keys
+const serviceLinks: { label: string; href: string; pageKey: PageKey | null }[] = [
+  { label: 'Pet Grooming', href: '/grooming', pageKey: 'grooming' },
+  { label: 'Pet Boarding', href: '/boarding', pageKey: 'boarding' },
+  { label: 'Daycare', href: '/boarding', pageKey: 'boarding' },
+  { label: 'Spa Treatments', href: '/grooming', pageKey: 'grooming' },
+];
+
+const supportLinks = [
+  { label: 'FAQs', href: '/grooming#faq' },
+  { label: 'Privacy Policy', href: '/contact' },
+  { label: 'Terms of Service', href: '/contact' },
+  { label: 'Cancellation Policy', href: '/contact' },
+];
 
 const socialLinks = [
   { icon: FaInstagram, href: 'https://www.instagram.com/pettocura', label: 'Instagram' },
@@ -32,6 +37,23 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { isPageVisible, loaded } = useVisibility();
+
+  const visibleServiceLinks = serviceLinks.filter((link) => {
+    if (!loaded || link.pageKey === null) return true;
+    return isPageVisible(link.pageKey);
+  });
+
+  // Deduplicate by href (e.g. Grooming appears twice for 'Pet Grooming' and 'Spa Treatments')
+  const uniqueVisibleServiceLinks = visibleServiceLinks.filter(
+    (link, index, self) => index === self.findIndex((l) => l.label === link.label)
+  );
+
+  const visibleCompanyLinks = companyLinks.filter((link) => {
+    if (!loaded || link.pageKey === null) return true;
+    return isPageVisible(link.pageKey);
+  });
+
   return (
     <footer className="bg-stone-900 text-stone-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
@@ -67,11 +89,11 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links */}
+          {/* Services Links */}
           <div>
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Services</h3>
             <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
+              {uniqueVisibleServiceLinks.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-sm text-stone-400 hover:text-teal-400 transition-colors">
                     {link.label}
@@ -81,10 +103,11 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Company Links */}
           <div>
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Company</h3>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {visibleCompanyLinks.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-sm text-stone-400 hover:text-teal-400 transition-colors">
                     {link.label}
@@ -94,10 +117,11 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Support Links */}
           <div>
             <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Support</h3>
             <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
+              {supportLinks.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-sm text-stone-400 hover:text-teal-400 transition-colors">
                     {link.label}

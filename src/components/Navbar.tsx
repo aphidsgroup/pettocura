@@ -5,22 +5,32 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useVisibility, PageKey } from '@/hooks/useVisibility';
 
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/grooming', label: 'Grooming' },
-  { href: '/boarding', label: 'Boarding' },
-  { href: '/find-a-center', label: 'Find a Center' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/franchise', label: 'Franchise' },
-  { href: '/contact', label: 'Contact' },
+// Map nav href → page key used in visibility settings
+const navLinks: { href: string; label: string; pageKey: PageKey | null }[] = [
+  { href: '/', label: 'Home', pageKey: 'home' },
+  { href: '/about', label: 'About Us', pageKey: 'about' },
+  { href: '/grooming', label: 'Grooming', pageKey: 'grooming' },
+  { href: '/boarding', label: 'Boarding', pageKey: 'boarding' },
+  { href: '/find-a-center', label: 'Find a Center', pageKey: 'find-a-center' },
+  { href: '/blog', label: 'Blog', pageKey: 'blog' },
+  { href: '/franchise', label: 'Franchise', pageKey: null }, // franchise has no page key, always show
+  { href: '/contact', label: 'Contact', pageKey: 'contact' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { isPageVisible, loaded } = useVisibility();
+
+  // Filter nav links based on visibility settings
+  const visibleNavLinks = navLinks.filter((link) => {
+    if (!loaded) return true; // show all while loading to avoid layout shift
+    if (link.pageKey === null) return true; // no pageKey = always visible
+    return isPageVisible(link.pageKey);
+  });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -56,7 +66,7 @@ export default function Navbar() {
 
           {/* Desktop Nav Links */}
           <ul className="hidden lg:flex items-center gap-1 list-none p-0 m-0">
-            {navLinks.map((link) => {
+            {visibleNavLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <li key={link.href}>
@@ -118,7 +128,7 @@ export default function Navbar() {
             className="lg:hidden bg-white border-t border-stone-100 overflow-hidden"
           >
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
-              {navLinks.map((link) => {
+              {visibleNavLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
